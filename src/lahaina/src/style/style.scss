@@ -6,57 +6,8 @@ Author:         admangum
 Author URI:     http://adammangum.com/about/
 Version:        0.0.0
 */
-h1, h2, h3, h4, h5, h6{
-	font-weight: normal;
-}
-ul{
-	display: flex;
-	flex-wrap: wrap;
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-li{
-	width: 200px;
-	height: 200px;
-	margin: 5px;
-	padding: 0 15px;
-	border: solid 1px #ddd;
-	&:hover{
-		background: pink;
-		cursor: pointer;
-	}
-	p{
-		max-height: 100px;
-    	overflow: hidden;
-    	text-overflow: ellipsis;
-	}
-}
-li:first-child{
-	flex-grow: 1;
-	min-width: 400px;
-}
-li.post-teaser-appear{
-	opacity: 0.01;
-}
-li.post-teaser-appear.post-teaser-appear-active{
-	opacity: 1;
-	transition: opacity .75s ease-in;
-}
-a{
-	text-decoration: none;
-	color: black;
-}
-a:hover{
-	text-decoration: underline;
-}
-.post-teaser-categories{
-	margin-top: -15px;
-	span:after{
-		content: " | ";
 
-	}
-	span:last-child:after{
-		content: "";
-	}
-}
+@import 'common';
+@import 'post-teaser';
+@import 'post';
+@import 'post-categories';

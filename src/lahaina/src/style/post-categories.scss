@@ -1,0 +1,26 @@
+.post-categories{
+	margin-top: -15px;
+	padding-left: 0;
+	list-style: none;
+	overflow: hidden;
+	font-size: 14px;
+}
+
+.post-category{
+	float: left;
+	padding-right: 3px;
+	&:last-child{
+		padding-right: 0;
+	}
+	a{
+		padding-right: 3px;
+	}
+}
+
+.post-category:after{
+	content: " | ";
+}
+
+.post-category:last-child:after{
+	content: "";
+}

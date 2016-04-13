@@ -1,0 +1,34 @@
+.post-teaser-list{
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.post-teaser{
+	width: 200px;
+	height: 200px;
+	margin: 5px;
+	padding: 0 15px;
+	border: solid 1px #ddd;
+	&:hover{
+		background: pink;
+		cursor: pointer;
+	}
+	p{
+		max-height: 100px;
+    	overflow: hidden;
+    	text-overflow: ellipsis;
+	}
+}
+.post-teaser:first-child{
+	flex-grow: 1;
+	min-width: 400px;
+}
+.post-teaser.post-teaser-appear{
+	opacity: 0.01;
+}
+.post-teaser.post-teaser-appear.post-teaser-appear-active{
+	opacity: 1;
+	transition: opacity .75s ease-in;
+}

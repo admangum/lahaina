@@ -23,7 +23,7 @@ module.exports = React.createClass({
 			return <PostTeaser key={post.id} data={post}/>;
 		};
 		return (
-			<ReactCssTransitionGroup component="ul" transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+			<ReactCssTransitionGroup component="ul" className="post-teaser-list" transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
 				{this.state.posts.map(getPost)}
 			</ReactCssTransitionGroup>
 		);

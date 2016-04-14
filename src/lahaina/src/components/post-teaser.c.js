@@ -14,7 +14,7 @@ module.exports = React.createClass({
 		// 	return <li key={"category-" + category.id}><WrappedLink to={'category/' + category.slug} className="post-category" content={category.title} /></li>;
 		// };
 		return (<li className="post-teaser" onClick={this.onClick}>
-					<h2>
+					<h2 className="post-title">
 						<Link to={"post/" + this.props.data.slug} dangerouslySetInnerHTML={{__html: this.props.data.title}}/>
 					</h2>
 					<PostCategories data={this.props.data.categories}/>

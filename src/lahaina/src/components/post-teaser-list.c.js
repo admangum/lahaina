@@ -11,11 +11,12 @@ module.exports = React.createClass({
 		this.update(this.props);
 	},
 	componentWillReceiveProps(props){
-		if(props.location.action === 'POP'){
+		if(props.location.action === 'POP' || props.location.pathname === '/'){
 			this.update(props);
 		}
 	},
 	update(props){
+		debugger;
 		Actions.routeChanged(props.params.category);
 	},
 	render() {

@@ -6,7 +6,7 @@ export default React.createClass({
 		var post = PostStore.getPostBySlug(this.props.params.id);
 		return (
 			<article>
-				<h1 dangerouslySetInnerHTML={{__html: post.title}}/>
+				<h1 className="post-title"><span dangerouslySetInnerHTML={{__html: post.title}}></span></h1>
 				<div dangerouslySetInnerHTML={{__html: post.content}}/>
 			</article>
 		);

@@ -1,9 +1,9 @@
 var React = require('react');
 var Reflux = require('reflux');
 var ReactCssTransitionGroup = require('react-addons-css-transition-group');
-var PostTeaser = require('./post-teaser.c');
-var PostStore = require('../stores/post.s');
-var Actions = require('../actions/actions');
+var PostTeaser = require('./post-teaser.comp');
+var PostStore = require('../../core/stores/post.store');
+var Actions = require('../../core/actions/core.actions');
 
 module.exports = React.createClass({
 	mixins: [Reflux.connect(PostStore, 'posts')],

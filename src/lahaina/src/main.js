@@ -1,12 +1,11 @@
 var React = require('react');
 var ReactDom = require('react-dom');
-// var { Router, Route, IndexRoute, hashHistory } = require('react-router');
 var Router = require('react-router').Router;
 var Route = require('react-router').Route;
 var IndexRoute = require('react-router').IndexRoute;
-var App = require('./components/app.c');
-var PostTeaserList = require('./components/post-teaser-list.c');
-var Post = require('./components/post.c');
+var App = require('./app.comp');
+var PostTeaserList = require('./list/components/post-teaser-list.comp');
+var Post = require('./post/components/post.comp');
 
 ReactDom.render((
 	<Router history={require('react-router').hashHistory}>

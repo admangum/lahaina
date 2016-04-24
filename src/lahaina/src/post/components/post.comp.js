@@ -1,5 +1,5 @@
 var React = require('react');
-var PostStore = require('../stores/post.s');
+var PostStore = require('../../core/stores/post.store');
 var ReactCssTransitionGroup = require('react-addons-css-transition-group');
 
 module.export = React.createClass({

@@ -7,7 +7,7 @@ Author URI:     http://adammangum.com/about/
 Version:        0.0.0
 */
 
-@import 'common';
-@import 'post-teaser';
-@import 'post';
-@import 'post-categories';
+@import 'common/styles/common';
+@import 'list/styles/post-teaser';
+@import 'post/styles/post';
+@import 'post/styles/post-categories';

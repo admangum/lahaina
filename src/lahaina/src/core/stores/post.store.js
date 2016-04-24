@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var http = require('superagent');
 var Reflux = require('reflux');
-var Actions = require('../actions/actions');
+var Actions = require('../actions/core.actions');
 
 module.exports = Reflux.createStore({
 	listenables: [Actions],
@@ -10,6 +10,13 @@ module.exports = Reflux.createStore({
 	},
 	onPostSelected: function(post){
 		alert(post.title);
+	},
+	onRouteChanged: function(categorySlug){
+		if(categorySlug){
+			this.getPostsByCategorySlug(categorySlug);
+		}else{
+			this.getPosts();
+		}
 	},
 	getPosts: function(options){
 		http.get('/')
@@ -45,12 +52,5 @@ module.exports = Reflux.createStore({
 	},
 	getInitialState: function(){
 		return this.posts;
-	},
-	onRouteChanged: function(categorySlug){
-		if(categorySlug){
-			this.getPostsByCategorySlug(categorySlug);
-		}else{
-			this.getPosts();
-		}
 	}
 });

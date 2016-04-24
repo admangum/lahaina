@@ -1,9 +1,9 @@
 var React = require('react');
-var Actions = require('../actions/actions');
+var Actions = require('../../core/actions/core.actions');
 var Link = require('react-router').Link;
-var PostCategories = require('./common/post-categories.c');
+var PostCategories = require('../../common/components/post-categories.comp');
 var _ = require('lodash');
-var imgUtils = require('../utils/img.utils');
+var imgUtils = require('../../common/utils/img.utils');
 
 module.exports = React.createClass({
 	onClick: function(){

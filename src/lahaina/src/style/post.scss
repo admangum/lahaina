@@ -4,6 +4,15 @@
 		background: black;
 		color: white;
     	font-size: 34px;
-    	line-height: 1.4em;
+    	line-height: 1.25em;
 	}
+}
+
+//enter
+.post.post-appear{
+	opacity: 0.01;
+}
+.post.post-appear-active{
+	opacity: 1;
+	transition: opacity 1s ease-out;
 }

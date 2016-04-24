@@ -7,12 +7,10 @@
 }
 .post-teaser{
 	width: 200px;
-	height: 200px;
+	min-height: 200px;
 	margin: 5px;
 	padding: 0 15px;
-	border: solid 1px #f5f5f5;
 	p{
-		max-height: 100px;
     	overflow: hidden;
     	text-overflow: ellipsis;
 	}
@@ -21,12 +19,32 @@
 	flex-grow: 1;
 	min-width: 400px;
 }
+
+// appear
 .post-teaser.post-teaser-appear{
 	opacity: 0.01;
 }
-.post-teaser.post-teaser-appear.post-teaser-appear-active{
+.post-teaser.post-teaser-appear-active{
 	opacity: 1;
-	transition: opacity .75s ease-in;
+	transition: opacity .75s ease-out;
+}
+
+// leave
+.post-teaser.post-teaser-leave{
+	opacity: 1;
+}
+.post-teaser.post-teaser-leave-active{
+	opacity: 0.01;
+	transition: opacity .5s ease-in;
+}
+
+// enter
+.post-teaser.post-teaser-enter{
+	opacity: 0.01;
+}
+.post-teaser.post-teaser-enter-active{
+	opacity: 1;
+	transition: opacity .5s ease-out;
 }
 
 .post-teaser .post-title {
@@ -34,6 +52,6 @@
 	a{
 		background: black;
     	color: white;
-    	line-height: 1.425em;
+    	line-height: 1.25em;
 	}
 }

@@ -1,12 +1,15 @@
-import React from 'react';
-import ReactDom from 'react-dom';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
-import App from './components/app.c';
-import PostTeaserList from './components/post-teaser-list.c';
-import Post from './components/post.c';
+var React = require('react');
+var ReactDom = require('react-dom');
+// var { Router, Route, IndexRoute, hashHistory } = require('react-router');
+var Router = require('react-router').Router;
+var Route = require('react-router').Route;
+var IndexRoute = require('react-router').IndexRoute;
+var App = require('./components/app.c');
+var PostTeaserList = require('./components/post-teaser-list.c');
+var Post = require('./components/post.c');
 
 ReactDom.render((
-	<Router history={hashHistory}>
+	<Router history={require('react-router').hashHistory}>
 		<Route path='/' component={App}>
 			<IndexRoute component={PostTeaserList}/>
 			<Route path='/post/:id' component={Post}/>

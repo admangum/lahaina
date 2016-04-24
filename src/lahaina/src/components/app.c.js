@@ -1,8 +1,8 @@
-import React from 'react';
-import {IndexLink} from 'react-router';
+var React = require('react');
+var IndexLink = require('react-router').IndexLink;
 
-export default React.createClass({
-	render(){
+module.exports = React.createClass({
+	render: function(){
 		return (
 			<div>
 				<h1><IndexLink to="/">*</IndexLink></h1>

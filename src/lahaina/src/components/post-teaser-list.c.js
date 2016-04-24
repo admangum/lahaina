@@ -1,25 +1,25 @@
-import React from 'react';
-import Reflux from 'reflux';
-import ReactCssTransitionGroup from 'react-addons-css-transition-group';
-import PostTeaser from './post-teaser.c';
-import PostStore from '../stores/post.s';
-import Actions from '../actions/actions';
+var React = require('react');
+var Reflux = require('reflux');
+var ReactCssTransitionGroup = require('react-addons-css-transition-group');
+var PostTeaser = require('./post-teaser.c');
+var PostStore = require('../stores/post.s');
+var Actions = require('../actions/actions');
 
 module.exports = React.createClass({
 	mixins: [Reflux.connect(PostStore, 'posts')],
-	componentWillMount(){
+	componentWillMount: function(){
 		this.update(this.props);
 	},
-	componentWillReceiveProps(props){
+	componentWillReceiveProps: function(props){
 		if(props.location.action === 'POP' || props.location.pathname === '/'){
 			this.update(props);
 		}
 	},
-	update(props){
+	update: function(props){
 		Actions.routeChanged(props.params.category);
 	},
-	render() {
-		var getPost = (post) => {
+	render: function() {
+		function getPost(post){
 			return <PostTeaser key={post.id} data={post}/>;
 		};
 		return (

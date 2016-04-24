@@ -1,8 +1,8 @@
-import React from 'react';
-import {Link} from 'react-router';
+var React = require('react');
+var Link = require('react-router').Link;
 
 module.exports = React.createClass({
-	render() {
+	render: function() {
 		function getCategoryItem(category){
 			return (
 				<li key={"category-" + category.id} className="post-category">

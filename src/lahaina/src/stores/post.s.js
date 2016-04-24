@@ -1,17 +1,17 @@
-import _ from 'lodash';
-import http from 'superagent';
-import Reflux from 'reflux';
-import Actions from '../actions/actions';
+var _ = require('lodash');
+var http = require('superagent');
+var Reflux = require('reflux');
+var Actions = require('../actions/actions');
 
 module.exports = Reflux.createStore({
 	listenables: [Actions],
-	init(){
+	init: function(){
 		this.posts = window.initialPosts;
 	},
-	onPostSelected(post){
+	onPostSelected: function(post){
 		alert(post.title);
 	},
-	getPosts(options){
+	getPosts: function(options){
 		http.get('/')
 			.query({
 				json: 1
@@ -24,7 +24,7 @@ module.exports = Reflux.createStore({
 				this.trigger(this.posts);
 			}, this));
 	},
-	getPostsByCategorySlug(categorySlug){
+	getPostsByCategorySlug: function(categorySlug){
 		http.get('/')
 			.query({
 				json: 'get_category_posts',
@@ -38,15 +38,15 @@ module.exports = Reflux.createStore({
 				this.trigger(this.posts);
 			}, this));
 	},
-	getPostBySlug(slug){
-		return _(this.posts).find((p) => {
+	getPostBySlug: function(slug){
+		return _(this.posts).find(function(p){
 			return p.slug === slug;
 		});
 	},
-	getInitialState(){
+	getInitialState: function(){
 		return this.posts;
 	},
-	onRouteChanged(categorySlug){
+	onRouteChanged: function(categorySlug){
 		if(categorySlug){
 			this.getPostsByCategorySlug(categorySlug);
 		}else{

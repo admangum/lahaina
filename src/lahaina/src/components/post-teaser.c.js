@@ -1,17 +1,17 @@
-import React from 'react';
-import Actions from '../actions/actions';
-import {Link} from 'react-router';
-import PostCategories from './common/post-categories.c';
-import _ from 'lodash';
-import imgUtils from '../utils/img.utils';
+var React = require('react');
+var Actions = require('../actions/actions');
+var Link = require('react-router').Link;
+var PostCategories = require('./common/post-categories.c');
+var _ = require('lodash');
+var imgUtils = require('../utils/img.utils');
 
 module.exports = React.createClass({
-	onClick(){
+	onClick: function(){
 		// Actions.postSelected(this.props);
 		// window.location.hash = '#post/' + slug;
 	},
 
-	render(){
+	render: function(){
 		var TEASER_WIDTH = 200,
 			data = this.props.data;
 

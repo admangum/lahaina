@@ -1,9 +1,9 @@
-import React from 'react';
-import PostStore from '../stores/post.s';
-import ReactCssTransitionGroup from 'react-addons-css-transition-group';
+var React = require('react');
+var PostStore = require('../stores/post.s');
+var ReactCssTransitionGroup = require('react-addons-css-transition-group');
 
-export default React.createClass({
-	render(){
+module.export = React.createClass({
+	render: function(){
 		var post = PostStore.getPostBySlug(this.props.params.id);
 		return (
 			<ReactCssTransitionGroup component="div" transitionName="post" transitionAppear={true} transitionAppearTimeout={1000} transitionEnterTimeout={500} transitionLeaveTimeout={500}>

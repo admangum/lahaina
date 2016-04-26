@@ -58,12 +58,12 @@ paths = {
 
 gulp.task('build', function(){
 	return gulp.src('./src/main.js')
-		.pipe(webpack(require('./webpack.config.js')))
+		.pipe(webpack(require('./webpack.config.js')).on('error', function(err){ console.log(err)}))
 		.pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('sass', function(){
-	gulp.src('./src/style/**/*.scss')
+	gulp.src('./src/**/*.scss')
 		.pipe(sass().on('error', sass.logError))
 		.pipe(gulp.dest('./dist'));
 });
@@ -75,7 +75,7 @@ gulp.task('deploy', function(){
 
 gulp.task('watch', function(){
 	gulp.watch('./dist/**/*', ['deploy']);
-	gulp.watch('./src/style/**/*.scss', ['sass']);
+	gulp.watch('./src/**/*.scss', ['sass']);
 	gulp.watch('./src/**/*.js', ['build']);
 });
 

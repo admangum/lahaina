@@ -4,44 +4,27 @@ var Link = require('react-router').Link;
 var PostCategories = require('../../common/components/post-categories.comp');
 var _ = require('lodash');
 var imgUtils = require('../../common/utils/img.utils');
+var config = require('../../common/config/config');
 
 module.exports = React.createClass({
-	onClick: function(){
-		// Actions.postSelected(this.props);
-		// window.location.hash = '#post/' + slug;
+	getRef: function(){
+		return this.refs[this.props.data.id];
 	},
-
 	render: function(){
-		var TEASER_WIDTH = 200,
-			data = this.props.data;
+		var data = this.props.data,
+			layout = this.props.layout,
+			cols = this.props.cols,
+			className = 'post-teaser',
+			style = {
+				width: cols.colWidth + 'px'
+			};
 
-		function getImgDimen(attachment){
-			try{
+			if(layout){
+				style.transform = 'translate(' + layout.x + 'px,' + layout.y + 'px)';
+			};
 
-				return imgUtils.transformDimensions({
-					dimensions: attachment.images.medium,
-					constraints: {
-						width: TEASER_WIDTH
-					}
-				});
-			}catch(err){
-				return null;
-			}
-		}
-
-		function getImg(){
-			var attachment = _.find(data.attachments, function(attachment){
-					return attachment.mime_type.indexOf('image') === 0;
-				});
-			var dimensions = getImgDimen(attachment);
-
-
-			return dimensions && (<img src={attachment.images.medium.url} width={dimensions.width} height={dimensions.height}/>);
-		}
-
-
-		return (<li className="post-teaser" onClick={this.onClick}>
-					{getImg()}
+		return (<li ref={data.id} className={className} onClick={this.onClick} style={style}>
+					{imgUtils.getMediumImage(data.attachments, {width: config.layout.minColWidth})}
 					<h2 className="post-title">
 						<Link to={"post/" + data.slug} dangerouslySetInnerHTML={{__html: data.title}}/>
 					</h2>

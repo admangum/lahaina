@@ -1,24 +1,18 @@
 .post-teaser-list{
-	display: flex;
-	flex-wrap: wrap;
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
 .post-teaser{
-	width: 200px;
-	min-height: 200px;
-	margin: 5px;
-	padding: 0 15px;
+	position: absolute;
+	// min-height: 200px;
+	padding: 0;
 	p{
     	overflow: hidden;
     	text-overflow: ellipsis;
 	}
 }
-.post-teaser:first-child{
-	flex-grow: 1;
-	min-width: 400px;
-}
+
 
 // appear
 .post-teaser.post-teaser-appear{
@@ -45,6 +39,15 @@
 .post-teaser.post-teaser-enter-active{
 	opacity: 1;
 	transition: opacity .5s ease-out;
+}
+
+// layout
+.post-teaser{
+	transition: transform 1s ease-out;
+}
+
+.no-layout-transition .post-teaser{
+	transition: none;
 }
 
 .post-teaser .post-title {

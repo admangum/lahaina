@@ -2,7 +2,7 @@ var React = require('react');
 var PostStore = require('../../core/stores/post.store');
 var ReactCssTransitionGroup = require('react-addons-css-transition-group');
 
-module.export = React.createClass({
+module.exports = React.createClass({
 	render: function(){
 		var post = PostStore.getPostBySlug(this.props.params.id);
 		return (

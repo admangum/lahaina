@@ -14,7 +14,13 @@ var layoutUtils = {
 				w: colInfo.colWidth
 			};
 			cols[cP] += elH;
-			cP = (cP === colInfo.colCount - 1) ? 0 : cP + 1;
+
+			// Find shortest column
+			cP = _.reduce(cols, function(memo, v, k){
+					memo = (_.isUndefined(memo.v) || memo.v > v) ? {v: v, k: k} : memo;
+					return memo;
+				}, {}).k;
+
 			return memo;
 		}, {});
 	},

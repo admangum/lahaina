@@ -2,6 +2,9 @@ var React = require('react');
 var Link = require('react-router').Link;
 
 module.exports = React.createClass({
+	onClick: function(e){
+		e.stopPropagation();
+	},
 	render: function() {
 		function getCategoryItem(category){
 			return (
@@ -11,7 +14,7 @@ module.exports = React.createClass({
 			);
 		}
 		return (
-			<ul className="post-categories">{this.props.data.map(getCategoryItem)}</ul>
+			<ul className="post-categories" onClick={this.onClick}>{this.props.data.map(getCategoryItem)}</ul>
 		);
 	}
 });

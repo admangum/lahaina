@@ -7,6 +7,9 @@ var imgUtils = require('../../common/utils/img.utils');
 var config = require('../../common/config/config');
 
 module.exports = React.createClass({
+	onClick: function(){
+		location.hash = '/post/' + this.props.data.slug;
+	},
 	getRef: function(){
 		return this.refs[this.props.data.id];
 	},
@@ -26,7 +29,7 @@ module.exports = React.createClass({
 		return (<li ref={data.id} className={className} onClick={this.onClick} style={style}>
 					{imgUtils.getMediumImage(data.attachments, {width: config.layout.minColWidth})}
 					<h2 className="post-title">
-						<Link to={"post/" + data.slug} dangerouslySetInnerHTML={{__html: data.title}}/>
+						<span dangerouslySetInnerHTML={{__html: data.title}}></span>
 					</h2>
 					<PostCategories data={data.categories}/>
 					<p dangerouslySetInnerHTML={{__html: data.excerpt}}/>

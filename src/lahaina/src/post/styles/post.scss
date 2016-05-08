@@ -1,3 +1,13 @@
+.post{
+	position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: -1;
+}
+.post > .inner{
+	padding: 75px 0;
+}
 .post-title{
     width: 60%;
 	span{

@@ -1,8 +1,11 @@
+var path = require('path');
+
 module.exports = {
     // entry: './src/main.js',
     output: {
         // path: './dist/',
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        publicPath: 'wp-content/themes/lahaina/'
     },
     module: {
         loaders: [{
@@ -12,7 +15,17 @@ module.exports = {
             query: {
                 presets: ['react']
             }
-        }]
+        }
+        // , {
+        //     test: /\.css$/,
+        //     loader: 'style-loader!css-loader'
+        // }
+        ]
     },
-    devtool: '#source-map'
+    devtool: '#source-map',
+    resolve: {
+        alias: {
+            xyz: path.resolve('./src/content/styles')
+        }
+    }
 };

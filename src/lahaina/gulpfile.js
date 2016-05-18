@@ -41,15 +41,16 @@ gulp.task('sass', function(){
 		.pipe(gulp.dest('./dist'));
 });
 
-gulp.task('deploy', function(){
-	return gulp.src(['./dist/**/*.js', './dist/style.css'])
+gulp.task('deploy', ['build', 'sass'], function(){
+	return gulp.src(['./dist/**/*.js', './dist/**/*.js.map', './dist/style.css'])
 		.pipe(gulp.dest('../../www/wp-content/themes/lahaina/'));
 });
 
-gulp.task('watch', function(){
-	gulp.watch('./dist/**/*', ['deploy']);
-	gulp.watch('./src/**/*.scss', ['sass']);
-	gulp.watch('./src/**/*.js', ['build']);
+gulp.task('watch', ['deploy'], function(){
+	// gulp.watch('./dist/**/*', ['deploy']);
+	// gulp.watch('./src/**/*.scss', ['sass']);
+	// gulp.watch('./src/**/*.js', ['build']);
+	gulp.watch('./src/**/*', ['deploy']);
 });
 
 gulp.task('dev', ['watch']);

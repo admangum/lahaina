@@ -9,7 +9,8 @@ module.exports = Reflux.createStore({
 		this.posts = window.initialPosts;
 	},
 	onPostSelected: function(post){
-		alert(post.title);
+		this.posts = [];
+		this.trigger(this.posts, post);
 	},
 	onRouteChanged: function(categorySlug){
 		if(categorySlug){
@@ -46,8 +47,24 @@ module.exports = Reflux.createStore({
 			}, this));
 	},
 	getPostBySlug: function(slug){
-		return _(this.posts).find(function(p){
+		var post = _(this.posts).find(function(p){
 			return p.slug === slug;
+		});
+		return new Promise(function(resolve, reject){
+			if(post){
+				return resolve(post);
+			}
+			http.get('/')
+				.query({
+					json: 'get_post',
+					post_slug: slug
+				})
+				.end(function(err, res){
+					if(err){
+						return reject(err);
+					}
+					resolve(res.body.post);
+				});
 		});
 	},
 	getInitialState: function(){

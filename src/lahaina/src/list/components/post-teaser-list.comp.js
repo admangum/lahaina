@@ -5,6 +5,7 @@ var PostTeaser = require('./post-teaser.comp');
 var PostStore = require('../../core/stores/post.store');
 var Actions = require('../../core/actions/core.actions');
 var utils = require('../../common/utils/layout.utils');
+var _ = require('lodash');
 module.exports = React.createClass({
 	mixins: [Reflux.ListenerMixin/*Reflux.connect(PostStore, 'posts')*/],
 	componentWillMount: function(){
@@ -32,11 +33,16 @@ module.exports = React.createClass({
 			this.onRouteChange(props);
 		}
 	},
-	onPostsChange: function(posts){
+	onPostsChange: function(posts, selectedPost){
 		this.setState({
 			posts: posts,
 			layout: null
 		});
+		if(selectedPost){
+			_.delay(function(){
+				location.hash = '/post/' + selectedPost.slug;
+			}, 750);
+		}
 	},
 	onRouteChange: function(props){
 		Actions.routeChanged(props.params.category);
@@ -62,10 +68,10 @@ module.exports = React.createClass({
 		var state = this.state,
 			className = this.getClassName();
 		return (
-			<ReactCssTransitionGroup component="ul" className={className} transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={500}>
+			<ReactCssTransitionGroup component="ul" className={className} transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={750}>
 				{this.state.posts.map(function(post, i){
 					return <PostTeaser ref={i} key={post.id} data={post} layout={state.layout && state.layout[i]} cols={state.cols}/>;
-				})}
+				}, this)}
 			</ReactCssTransitionGroup>
 		);
 	}

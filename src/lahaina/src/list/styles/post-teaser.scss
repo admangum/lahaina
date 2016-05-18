@@ -31,6 +31,9 @@
 	opacity: 0.01;
 	transition: opacity .5s ease-in;
 }
+.post-teaser.post-teaser-leave-active.selected{
+	transition: opacity .5s ease-in .25s;
+}
 
 // enter
 .post-teaser.post-teaser-enter{

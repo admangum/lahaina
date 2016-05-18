@@ -2,13 +2,18 @@ var React = require('react');
 var Actions = require('../../core/actions/core.actions');
 var Link = require('react-router').Link;
 var PostCategories = require('../../common/components/post-categories.comp');
+var Actions = require('../../core/actions/core.actions');
 var _ = require('lodash');
 var imgUtils = require('../../common/utils/img.utils');
 var config = require('../../common/config/config');
 
 module.exports = React.createClass({
 	onClick: function(){
-		location.hash = '/post/' + this.props.data.slug;
+		var post = this.props.data;
+		this.refs[post.id].classList.add('selected');
+		Actions.postSelected(post);
+		// location.hash = '/post/' + this.props.data.slug;
+		//
 	},
 	getRef: function(){
 		return this.refs[this.props.data.id];
@@ -26,7 +31,7 @@ module.exports = React.createClass({
 				style.transform = 'translate(' + layout.x + 'px,' + layout.y + 'px)';
 			};
 
-		return (<li ref={data.id} className={className} onClick={this.onClick} style={style}>
+		return (<li ref={data.id} className={className} style={style} onClick={this.onClick}>
 					{imgUtils.getMediumImage(data.attachments, {width: config.layout.minColWidth})}
 					<h2 className="post-title">
 						<span dangerouslySetInnerHTML={{__html: data.title}}></span>

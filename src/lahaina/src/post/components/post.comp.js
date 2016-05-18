@@ -1,20 +1,22 @@
 var React = require('react');
 var PostStore = require('../../core/stores/post.store');
 var ReactCssTransitionGroup = require('react-addons-css-transition-group');
-
+var _ = require('lodash');
 module.exports = React.createClass({
 	componentWillMount: function(){
-		this.post = PostStore.getPostBySlug(this.props.params.id);
-		if(this.post.custom_fields.custom_stylesheet){
-			require(['style!css!sass!xyz/' + this.props.params.id + '.scss'], function(){
-				this.setState({
-					ready: true
-				});
-			}.bind(this));
-		}
-		this.setState({
-			ready: true
-		});
+		PostStore.getPostBySlug(this.props.params.id).then(_.bind(function(post){
+			this.post = post;
+			if(this.post.custom_fields.custom_stylesheet){
+				require(['style!css!sass!xyz/' + this.props.params.id + '.scss'], function(){
+					this.setState({
+						ready: true
+					});
+				}.bind(this));
+			}
+			this.setState({
+				ready: true
+			});
+		}, this));
 	},
 	getInitialState: function(){
 		return {

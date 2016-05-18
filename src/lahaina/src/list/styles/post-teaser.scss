@@ -7,6 +7,7 @@
 	position: absolute;
 	cursor: pointer;
 	padding: 0;
+	overflow: hidden;
 	p{
     	overflow: hidden;
     	text-overflow: ellipsis;
@@ -25,14 +26,27 @@
 
 // leave
 .post-teaser.post-teaser-leave{
+	// width: 100%;
 	opacity: 1;
+
 }
 .post-teaser.post-teaser-leave-active{
 	opacity: 0.01;
 	transition: opacity .5s ease-in;
 }
 .post-teaser.post-teaser-leave-active.selected{
-	transition: opacity .5s ease-in .25s;
+	opacity: 0.7;
+	width: 0 !important;
+	transition: width .25s ease-in .9s, opacity .25s linear .8s;
+
+	.post-title span{
+		color: black;
+		transition: color .5s ease-in .25s;
+	}
+	.post-categories, p{
+		opacity: 0.01;
+		transition: opacity .5s ease-in .25s;
+	}
 }
 
 // enter

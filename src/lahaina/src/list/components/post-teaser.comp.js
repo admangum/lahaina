@@ -12,8 +12,6 @@ module.exports = React.createClass({
 		var post = this.props.data;
 		this.refs[post.id].classList.add('selected');
 		Actions.postSelected(post);
-		// location.hash = '/post/' + this.props.data.slug;
-		//
 	},
 	getRef: function(){
 		return this.refs[this.props.data.id];
@@ -23,8 +21,9 @@ module.exports = React.createClass({
 			layout = this.props.layout,
 			cols = this.props.cols,
 			className = 'post-teaser',
+			width = cols.colWidth + 'px',
 			style = {
-				width: cols.colWidth + 'px'
+				width: width
 			};
 
 			if(layout){
@@ -33,7 +32,7 @@ module.exports = React.createClass({
 
 		return (<li ref={data.id} className={className} style={style} onClick={this.onClick}>
 					{imgUtils.getMediumImage(data.attachments, {width: config.layout.minColWidth})}
-					<h2 className="post-title">
+					<h2 className="post-title" style={{width:width}}>
 						<span dangerouslySetInnerHTML={{__html: data.title}}></span>
 					</h2>
 					<PostCategories data={data.categories}/>

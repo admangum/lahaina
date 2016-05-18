@@ -26,7 +26,7 @@ module.exports = React.createClass({
 	render: function(){
 		var post = this.post;
 		return this.state.ready && (
-			<ReactCssTransitionGroup component="div" transitionName="post" transitionAppear={true} transitionAppearTimeout={1000} transitionEnterTimeout={500} transitionLeaveTimeout={500}>
+			<ReactCssTransitionGroup component="div" transitionName="post" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={500}>
 				<article key={post.id} className={"post " + post.slug}>
 					<div className="inner">
 						<h1 className="post-title"><span dangerouslySetInnerHTML={{__html: post.title}}></span></h1>

@@ -7,6 +7,8 @@ var App = require('./app.comp');
 var PostTeaserList = require('./list/components/post-teaser-list.comp');
 var Post = require('./post/components/post.comp');
 
+require('es6-promise').polyfill();
+
 ReactDom.render((
 	<Router history={require('react-router').hashHistory}>
 		<Route path='/' component={App}>

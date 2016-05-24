@@ -1,22 +1,25 @@
-.post-categories{
+.post-tags{
 	margin-top: -15px;
 	padding-left: 0;
 	list-style: none;
 	overflow: hidden;
-	font-size: 14px;
+	font-size: 13px;
+	color: #333;
 }
 
 .post-category{
+	background: #F52051;
+    padding: 1px 5px;
+    color: #FFEDF1;
+    font-size: 11px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.post-tag{
 	float: left;
-}
-
-.post-category:after{
-	content: "|";
-	padding: 0 3px;
-	font-size: 80%;
-	color: #4a4a4a;
-}
-
-.post-category:last-child:after{
-	content: "";
+	margin-right: 5px;
+	a{
+		color: inherit;
+	}
 }

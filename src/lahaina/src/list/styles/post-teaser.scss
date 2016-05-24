@@ -14,6 +14,10 @@
 	}
 }
 
+.post-teaser .post-title{
+	margin-top: 0;
+}
+
 
 // appear
 .post-teaser.post-teaser-appear{
@@ -26,12 +30,10 @@
 
 // leave
 .post-teaser.post-teaser-leave{
-	// width: 100%;
 	opacity: 1;
-
 }
 .post-teaser.post-teaser-leave-active{
-	opacity: 0.01;
+	opacity: 0;
 	transition: opacity .5s ease-in;
 }
 .post-teaser.post-teaser-leave-active.selected{
@@ -41,6 +43,7 @@
 
 	.post-title span{
 		color: black;
+		background: black;
 		transition: color .5s ease-in .25s;
 	}
 	.post-categories, p{

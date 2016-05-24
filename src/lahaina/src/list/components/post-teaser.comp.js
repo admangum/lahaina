@@ -1,7 +1,7 @@
 var React = require('react');
 var Actions = require('../../core/actions/core.actions');
 var Link = require('react-router').Link;
-var PostCategories = require('../../common/components/post-categories.comp');
+var PostTags = require('../../common/components/post-tags.comp');
 var Actions = require('../../core/actions/core.actions');
 var _ = require('lodash');
 var imgUtils = require('../../common/utils/img.utils');
@@ -32,10 +32,11 @@ module.exports = React.createClass({
 
 		return (<li ref={data.id} className={className} style={style} onClick={this.onClick}>
 					{imgUtils.getMediumImage(data.attachments, {width: config.layout.minColWidth})}
+					<span className="post-category">{data.categories[0].title}</span>
 					<h2 className="post-title" style={{width:width}}>
 						<span dangerouslySetInnerHTML={{__html: data.title}}></span>
 					</h2>
-					<PostCategories data={data.categories}/>
+					<PostTags data={data.tags}/>
 					<p dangerouslySetInnerHTML={{__html: data.excerpt}}/>
 				</li>);
 	}

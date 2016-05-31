@@ -32,11 +32,11 @@ module.exports = React.createClass({
 
 		return (<li ref={data.id} className={className} style={style} onClick={this.onClick}>
 					{imgUtils.getMediumImage(data.attachments, {width: config.layout.minColWidth})}
-					<span className="post-category">{data.categories[0].title}</span>
+					<PostTags data={data.categories} type="category" />
 					<h2 className="post-title" style={{width:width}}>
 						<span dangerouslySetInnerHTML={{__html: data.title}}></span>
 					</h2>
-					<PostTags data={data.tags}/>
+					<PostTags data={data.tags} type="tag" />
 					<p dangerouslySetInnerHTML={{__html: data.excerpt}}/>
 				</li>);
 	}

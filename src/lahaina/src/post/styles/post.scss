@@ -27,10 +27,20 @@
 }
 
 //enter
-.post.post-appear{
+.post.post-appear,
+.post.post-enter{
 	opacity: 0.01;
 }
-.post.post-appear-active{
+.post.post-appear-active,
+.post.post-enter-active{
 	opacity: 1;
 	transition: opacity .5s ease-out .25s;
+}
+
+.post-leave{
+	opacity: 1;
+}
+.post-leave-active{
+	opacity: 0;
+	transition: opacity .3s ease-in;
 }

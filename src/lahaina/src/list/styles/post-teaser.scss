@@ -16,6 +16,7 @@
 
 .post-teaser .post-title{
 	margin-top: 0;
+	margin-bottom: 7px;
 }
 
 
@@ -39,7 +40,7 @@
 .post-teaser.post-teaser-leave-active.selected{
 	opacity: 0.7;
 	width: 0 !important;
-	transition: width .25s ease-in .9s, opacity .25s linear .8s;
+	transition: width .45s cubic-bezier(.42,.03,.4,1) .7s, opacity .25s linear .8s;
 
 	.post-title span{
 		color: black;

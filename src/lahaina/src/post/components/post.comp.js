@@ -4,10 +4,18 @@ var ReactCssTransitionGroup = require('react-addons-css-transition-group');
 var _ = require('lodash');
 module.exports = React.createClass({
 	componentWillMount: function(){
-		PostStore.getPostBySlug(this.props.params.id).then(_.bind(function(post){
+		this.onRouteChange(this.props);
+	},
+	componentWillReceiveProps: function(props){
+		if(props.location.action === 'POP' || props.location.pathname === '/'){
+			this.onRouteChange(props);
+		}
+	},
+	onRouteChange: function(props){
+		PostStore.getPostBySlug(props.params.id).then(_.bind(function(post){
 			this.post = post;
-			if(this.post.custom_fields.custom_stylesheet){
-				require(['style!css!sass!xyz/' + this.props.params.id + '.scss'], function(){
+			if(this.hasCustomStylesheet(post)){
+				require(['style!css!sass!xyz/' + props.params.id + '.scss'], function(){
 					this.setState({
 						ready: true
 					});
@@ -17,6 +25,13 @@ module.exports = React.createClass({
 				ready: true
 			});
 		}, this));
+	},
+	hasCustomStylesheet: function(post){
+		try{
+			return post.custom_fields.custom_stylesheet[0] === '1';
+		}catch(err){
+			return false;
+		}
 	},
 	getInitialState: function(){
 		return {

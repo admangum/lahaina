@@ -12,9 +12,11 @@ module.exports = Reflux.createStore({
 		this.posts = [];
 		this.trigger(this.posts, post);
 	},
-	onRouteChanged: function(categorySlug){
-		if(categorySlug){
-			this.getPostsByCategorySlug(categorySlug);
+	onRouteChanged: function(routeParams){
+		if(routeParams.category){
+			this.getPostsByCategory(routeParams.category);
+		}else if(routeParams.tag){
+			this.getPostsByTag(routeParams.tag);
 		}else{
 			this.getPosts();
 		}
@@ -32,7 +34,7 @@ module.exports = Reflux.createStore({
 				this.trigger(this.posts);
 			}, this));
 	},
-	getPostsByCategorySlug: function(categorySlug){
+	getPostsByCategory: function(categorySlug){
 		http.get('/')
 			.query({
 				json: 'get_category_posts',
@@ -42,7 +44,21 @@ module.exports = Reflux.createStore({
 				if(err){
 					return console.log(err);
 				}
-				this.posts = res.body.posts;
+				this.posts = res.body.posts || [];
+				this.trigger(this.posts);
+			}, this));
+	},
+	getPostsByTag: function(tagSlug){
+		http.get('/')
+			.query({
+				json: 'get_tag_posts',
+				tag_slug: tagSlug
+			})
+			.end(_.bind(function(err, res){
+				if(err){
+					return console.log(err);
+				}
+				this.posts = res.body.posts || [];
 				this.trigger(this.posts);
 			}, this));
 	},

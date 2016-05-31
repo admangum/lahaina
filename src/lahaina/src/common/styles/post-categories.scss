@@ -1,10 +1,8 @@
-.post-tags{
-	margin-top: -15px;
+.post-classification-list{
 	padding-left: 0;
 	list-style: none;
 	overflow: hidden;
 	font-size: 13px;
-	color: #333;
 }
 
 .post-category{
@@ -14,6 +12,9 @@
     font-size: 11px;
     display: inline-block;
     margin-bottom: 10px;
+    a{
+		color: inherit;
+	}
 }
 
 .post-tag{

@@ -6,15 +6,17 @@ module.exports = React.createClass({
 		e.stopPropagation();
 	},
 	render: function() {
-		function getTagItem(tag){
+		var type = this.props.type;
+
+		function getItem(item){
 			return (
-				<li key={"tag-" + tag.id} className="post-tag">
-					<Link to={'tag/' + tag.slug}>#{tag.title}</Link>
+				<li key={type + '-' + item.id} className={'post-' + type}>
+					<Link to={type + '/' + item.slug}>{item.title}</Link>
 				</li>
 			);
 		}
 		return (
-			<ul className="post-tags" onClick={this.onClick}>{this.props.data.map(getTagItem)}</ul>
+			<ul className={'post-classification-list'} onClick={this.onClick}>{this.props.data.map(getItem)}</ul>
 		);
 	}
 });

@@ -46,7 +46,7 @@ module.exports = React.createClass({
 		}
 	},
 	onRouteChange: function(props){
-		Actions.routeChanged(props.params.category);
+		Actions.routeChanged(props.routeParams);
 	},
 	onWindowResize: function(){
 		this.setState({

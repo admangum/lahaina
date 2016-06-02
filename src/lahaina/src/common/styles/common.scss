@@ -13,8 +13,14 @@ a:hover{
 }
 
 footer#colophon{
-	position: absolute;
-	bottom: 20px;
+	position: fixed;
+	bottom: 15px;
 	font-size: 12px;
+	padding: 2px 3px;
+	background: rgba(0,0,0,0.19);
+	z-index: -1;
+	a{
+		color: #FDFDFD;
+	}
 }
 

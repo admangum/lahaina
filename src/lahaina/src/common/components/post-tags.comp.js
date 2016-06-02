@@ -16,7 +16,7 @@ module.exports = React.createClass({
 			);
 		}
 		return (
-			<ul className={'post-classification-list'} onClick={this.onClick}>{this.props.data.map(getItem)}</ul>
+			<ul className={'post-classification-list post-' + type + '-list'} onClick={this.onClick}>{this.props.data.map(getItem)}</ul>
 		);
 	}
 });

@@ -3,6 +3,7 @@
 	list-style: none;
 	overflow: hidden;
 	font-size: 13px;
+	white-space: nowrap;
 }
 
 .post-category{
@@ -23,4 +24,7 @@
 	a{
 		color: inherit;
 	}
+}
+.post-tag:before{
+	content: '#';
 }

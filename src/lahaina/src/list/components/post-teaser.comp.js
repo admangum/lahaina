@@ -37,7 +37,7 @@ module.exports = React.createClass({
 						<span dangerouslySetInnerHTML={{__html: data.title}}></span>
 					</h2>
 					<PostTags data={data.tags} type="tag" />
-					<p dangerouslySetInnerHTML={{__html: data.excerpt}}/>
+					<div dangerouslySetInnerHTML={{__html: data.excerpt}}/>
 				</li>);
 	}
 });

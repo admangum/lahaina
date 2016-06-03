@@ -1,9 +1,11 @@
-var _ = require('lodash'),
+var React = require('react'),
+	_ = require('lodash'),
 	utils;
 
-function getImageAttachment(attachments){
-	return _.find(attachments, function(attachment){
-		return attachment.mime_type.indexOf('image') === 0;
+function getTeaserImageAttachment(post){
+	var teaserImageId = post.custom_fields.teaser_image[0];
+	return _.find(post.attachments, function(attachment){
+		return attachment.id === parseInt(teaserImageId, 10) && attachment.mime_type.indexOf('image') === 0;
 	});
 }
 
@@ -20,16 +22,16 @@ function transformDimensions(options){
 }
 
 utils = {
-	getMediumImage: function(attachments, constraints){
-		var attachment = getImageAttachment(attachments),
-			dimensions;
+	getTeaserImage: function(post, constraints){
 		try{
+			var attachment = getTeaserImageAttachment(post),
+				dimensions;
 			dimensions = transformDimensions({
-				dimensions: attachment.images.medium,
+				dimensions: attachment.images.full,
 				constraints: constraints
 			});
 			return (
-				<img src={attachment.images.medium.url} width={dimensions.width} height={dimensions.height}/>
+				<img src={attachment.images.full.url} width={dimensions.width} height={dimensions.height}/>
 			);
 		}catch(err){
 			return null;

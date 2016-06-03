@@ -11,7 +11,8 @@ var layoutUtils = {
 			memo[key] = {
 				x: cP * (colInfo.colWidth + config.gutterWidth),
 				y: cols[cP],
-				w: colInfo.colWidth
+				w: colInfo.colWidth,
+				h: elH
 			};
 			cols[cP] += elH;
 

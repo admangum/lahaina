@@ -65,14 +65,24 @@ module.exports = React.createClass({
 			firstLayout: true
 		};
 	},
-	getClassName: function(){
-		return 'post-teaser-list' + (this.state.firstLayout ? ' first-layout' : '');
+	getClassName: function(firstLayout){
+		return 'post-teaser-list' + (firstLayout ? ' first-layout' : '');
+	},
+	getStyle: function(layout, posts){
+		try{
+			var last = layout[posts.length - 1];
+			return {height: last.y + last.h};
+		}catch(err){
+			return {};
+		}
 	},
 	render: function() {
 		var state = this.state,
-			className = this.getClassName();
+			style = this.getStyle(state.layout, state.posts),
+			className = this.getClassName(state.firstLayout);
+
 		return (
-			<ReactCssTransitionGroup component="ul" className={className} transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={TRANSITION_OUT_DURATION}>
+			<ReactCssTransitionGroup component="ul" className={className} style={style} transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={TRANSITION_OUT_DURATION}>
 				{this.state.posts.map(function(post, i){
 					return <PostTeaser ref={i} key={post.id} data={post} layout={state.layout && state.layout[i]} cols={state.cols}/>;
 				}, this)}

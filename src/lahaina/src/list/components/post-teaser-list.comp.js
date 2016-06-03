@@ -24,9 +24,12 @@ module.exports = React.createClass({
 				layout: utils.getLayoutInfo(this.refs)
 			});
 		}else if(this.state.firstLayout){
-			this.setState({
-				firstLayout: false
-			});
+			_.defer(function(that){
+				that.setState({
+					firstLayout: false
+				});
+			}, this);
+
 		}
 	},
 	componentWillReceiveProps: function(props){
@@ -63,7 +66,7 @@ module.exports = React.createClass({
 		};
 	},
 	getClassName: function(){
-		return 'post-teaser-list' + (this.state.firstLayout ? ' no-layout-transition' : '');
+		return 'post-teaser-list' + (this.state.firstLayout ? ' first-layout' : '');
 	},
 	render: function() {
 		var state = this.state,

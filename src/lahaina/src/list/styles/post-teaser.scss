@@ -25,6 +25,13 @@
 
 
 // appear
+.post-teaser-list.first-layout{
+	opacity: 0.01;
+}
+.post-teaser-list{
+	opacity: 1;
+	transition: opacity .5s ease-out;
+}
 .post-teaser.post-teaser-appear{
 	opacity: 0.01;
 }
@@ -74,7 +81,7 @@
 	transition: transform 1s ease-out;
 }
 
-.no-layout-transition .post-teaser{
+.post-teaser-list.first-layout .post-teaser{
 	transition: none;
 }
 

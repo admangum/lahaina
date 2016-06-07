@@ -2,6 +2,7 @@ var _ = require('lodash');
 var http = require('superagent');
 var Reflux = require('reflux');
 var Actions = require('../actions/core.actions');
+var animation = require('../../common/utils/animation.utils');
 
 module.exports = Reflux.createStore({
 	listenables: [Actions],
@@ -13,13 +14,15 @@ module.exports = Reflux.createStore({
 		this.trigger(this.posts, post);
 	},
 	onRouteChanged: function(routeParams){
-		if(routeParams.category){
-			this.getPostsByCategory(routeParams.category);
-		}else if(routeParams.tag){
-			this.getPostsByTag(routeParams.tag);
-		}else{
-			this.getPosts();
-		}
+		animation.scrollToTop().then(_.bind(function(){
+			if(routeParams.category){
+				this.getPostsByCategory(routeParams.category);
+			}else if(routeParams.tag){
+				this.getPostsByTag(routeParams.tag);
+			}else{
+				this.getPosts();
+			}
+		}, this));
 	},
 	getPosts: function(options){
 		http.get('/')

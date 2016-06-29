@@ -2,6 +2,7 @@ var React = require('react');
 var Reflux = require('reflux');
 var ReactCssTransitionGroup = require('react-addons-css-transition-group');
 var PostTeaser = require('./post-teaser.comp');
+var LoadingIndicator = require('../../common/components/loading.comp');
 var PostStore = require('../../core/stores/post.store');
 var Actions = require('../../core/actions/core.actions');
 var utils = require('../../common/utils/layout.utils');
@@ -37,14 +38,21 @@ module.exports = React.createClass({
 			this.onRouteChange(props);
 		}
 	},
-	onPostsChange: function(posts, selectedPost){
-		this.setState({
-			posts: posts,
-			layout: null
-		});
-		if(selectedPost){
+	onPostsChange: function(data){
+		if(data.posts){
+			this.setState({
+				posts: data.posts,
+				layout: null,
+				loading: false
+			});
+		}else{
+			this.setState({
+				loading: !!data.loading
+			});
+		}
+		if(data.selectedPost){
 			_.delay(function(){
-				location.hash = '/post/' + selectedPost.slug;
+				location.hash = '/post/' + data.selectedPost.slug;
 			}, TRANSITION_OUT_DURATION);
 		}
 	},
@@ -62,7 +70,8 @@ module.exports = React.createClass({
 			posts: [],//PostStore.getInitialState(),
 			cols: utils.getColumnInfo(),
 			layout: null,
-			firstLayout: true
+			firstLayout: true,
+			loading: true
 		};
 	},
 	getClassName: function(firstLayout){
@@ -86,6 +95,7 @@ module.exports = React.createClass({
 				{this.state.posts.map(function(post, i){
 					return <PostTeaser ref={i} key={post.id} data={post} layout={state.layout && state.layout[i]} cols={state.cols}/>;
 				}, this)}
+				<LoadingIndicator key="loading-indicator" loading={state.loading} />
 			</ReactCssTransitionGroup>
 		);
 	}

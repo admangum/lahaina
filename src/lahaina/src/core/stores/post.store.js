@@ -11,10 +11,14 @@ module.exports = Reflux.createStore({
 	},
 	onPostSelected: function(post){
 		this.posts = [];
-		this.trigger(this.posts, post);
+		this.trigger({
+			posts: this.posts,
+			selectedPost: post
+		});
 	},
 	onRouteChanged: function(routeParams){
 		animation.scrollToTop().then(_.bind(function(){
+			this.trigger({loading: true});
 			if(routeParams.category){
 				this.getPostsByCategory(routeParams.category);
 			}else if(routeParams.tag){
@@ -34,7 +38,7 @@ module.exports = Reflux.createStore({
 					return console.log(err);
 				}
 				this.posts = res.body.posts;
-				this.trigger(this.posts);
+				this.trigger({posts: this.posts});
 			}, this));
 	},
 	getPostsByCategory: function(categorySlug){
@@ -48,7 +52,9 @@ module.exports = Reflux.createStore({
 					return console.log(err);
 				}
 				this.posts = res.body.posts || [];
-				this.trigger(this.posts);
+				this.trigger({
+					posts: this.posts
+				});
 			}, this));
 	},
 	getPostsByTag: function(tagSlug){
@@ -62,7 +68,7 @@ module.exports = Reflux.createStore({
 					return console.log(err);
 				}
 				this.posts = res.body.posts || [];
-				this.trigger(this.posts);
+				this.trigger({posts: this.posts});
 			}, this));
 	},
 	getPostBySlug: function(slug){

@@ -41,9 +41,14 @@ gulp.task('sass', function(){
 		.pipe(gulp.dest('./dist'));
 });
 
-gulp.task('deploy', ['build', 'sass'], function(){
-	return gulp.src(['./dist/**/*.js', './dist/**/*.js.map', './dist/style.css'])
+gulp.task('deploy', ['build', 'sass', 'vendor'], function(){
+	return gulp.src(['./dist/**/*'])
 		.pipe(gulp.dest('../../www/wp-content/themes/lahaina/'));
+});
+
+gulp.task('vendor', function(){
+	return gulp.src('./src/vendor/**/*')
+		.pipe(gulp.dest('./dist/vendor'));
 });
 
 gulp.task('watch', ['deploy'], function(){

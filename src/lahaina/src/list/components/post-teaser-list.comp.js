@@ -9,7 +9,7 @@ var utils = require('../../common/utils/layout.utils');
 var _ = require('lodash');
 var TRANSITION_OUT_DURATION = 1150;
 module.exports = React.createClass({
-	mixins: [Reflux.ListenerMixin/*Reflux.connect(PostStore, 'posts')*/],
+	mixins: [Reflux.ListenerMixin],
 	componentWillMount: function(){
 		this.onWindowResize = _.debounce(this.onWindowResize, 300);
 		this.listenTo(PostStore, this.onPostsChange);
@@ -67,7 +67,7 @@ module.exports = React.createClass({
 	},
 	getInitialState: function(){
 		return {
-			posts: [],//PostStore.getInitialState(),
+			posts: [],
 			cols: utils.getColumnInfo(),
 			layout: null,
 			firstLayout: true,

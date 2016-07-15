@@ -7,7 +7,7 @@ var animation = require('../../common/utils/animation.utils');
 module.exports = Reflux.createStore({
 	listenables: [Actions],
 	init: function(){
-		this.posts = window.initialPosts;
+		this.posts = window.initialPosts.posts;
 	},
 	onPostSelected: function(post){
 		this.posts = [];
@@ -18,13 +18,18 @@ module.exports = Reflux.createStore({
 	},
 	onRouteChanged: function(routeParams){
 		animation.scrollToTop().then(_.bind(function(){
+
 			this.trigger({loading: true});
+
 			if(routeParams.category){
 				this.getPostsByCategory(routeParams.category);
 			}else if(routeParams.tag){
 				this.getPostsByTag(routeParams.tag);
 			}else{
-				this.getPosts();
+				this.posts = window.initialPosts.posts;
+				this.trigger({
+					posts: this.posts
+				});
 			}
 		}, this));
 	},

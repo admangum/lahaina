@@ -11,13 +11,18 @@ var TRANSITION_OUT_DURATION = 1150;
 module.exports = React.createClass({
 	mixins: [Reflux.ListenerMixin],
 	componentWillMount: function(){
-		this.onWindowResize = _.debounce(this.onWindowResize, 300);
 		this.listenTo(PostStore, this.onPostsChange);
+		this.onWindowResize = _.debounce(this.onWindowResize, 300);
+		this.onWindowScroll = _.debounce(this.onWindowScroll, 300);
 		window.addEventListener('resize', this.onWindowResize);
-		this.onRouteChange(this.props);
+		window.addEventListener('scroll', this.onWindowScroll);
+
+		this.onRouteChange(this.props.routeParams);
+
 	},
 	componentWillUnmount: function(){
 		window.removeEventListener('resize', this.onWindowResize);
+		window.removeEventListener('scroll', this.onWindowScroll);
 	},
 	componentDidUpdate: function(){
 		if(!this.state.layout){
@@ -35,7 +40,7 @@ module.exports = React.createClass({
 	},
 	componentWillReceiveProps: function(props){
 		if(props.location.action === 'POP' || props.location.pathname === '/'){
-			this.onRouteChange(props);
+			this.onRouteChange(props.routeParams);
 		}
 	},
 	onPostsChange: function(data){
@@ -56,14 +61,17 @@ module.exports = React.createClass({
 			}, TRANSITION_OUT_DURATION);
 		}
 	},
-	onRouteChange: function(props){
-		Actions.routeChanged(props.routeParams);
+	onRouteChange: function(routeParams){
+		Actions.routeChanged(routeParams);
 	},
 	onWindowResize: function(){
 		this.setState({
 			cols: utils.getColumnInfo(),
 			layout: null
 		});
+	},
+	onWindowScroll: function(e){
+		console.log('scroll');
 	},
 	getInitialState: function(){
 		return {

@@ -14,8 +14,9 @@ ReactDom.render((
 		<Route path='/' component={App}>
 			<IndexRoute component={PostTeaserList}/>
 			<Route path='/post/:id' component={Post}/>
-			<Route path='/category/:category' component={PostTeaserList}/>
-			<Route path='/tag/:tag' component={PostTeaserList}/>
+			<Route path='/:page' component={PostTeaserList}/>
+			<Route path='/category/:category(/:page)' component={PostTeaserList}/>
+			<Route path='/tag/:tag(/:page)' component={PostTeaserList}/>
 		</Route>
 	</Router>
 ), document.getElementById('app'));

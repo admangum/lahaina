@@ -34,6 +34,11 @@ var layoutUtils = {
 			colCount: colCount,
 			colWidth: colWidth
 		};
+	},
+	getLayoutHeight: function(layoutInfo){
+		return _.reduce(layoutInfo, function(memo, post){
+			return _.max([memo, post.y + post.h]);
+		}, 0);
 	}
 };
 module.exports = layoutUtils;

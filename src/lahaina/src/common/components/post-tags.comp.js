@@ -11,7 +11,7 @@ module.exports = React.createClass({
 		function getItem(item){
 			return (
 				<li key={type + '-' + item.id} className={'post-' + type}>
-					<Link to={type + '/' + item.slug}>{item.title}</Link>
+					<Link to={type + '/' + item.slug + '/1'}>{item.title}</Link>
 				</li>
 			);
 		}

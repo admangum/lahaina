@@ -22,9 +22,11 @@ module.exports = Reflux.createStore({
 			this.trigger({loading: true});
 
 			if(routeParams.category){
-				this.getPostsByCategory(routeParams.category);
+				this.getPostsByCategory(routeParams);
 			}else if(routeParams.tag){
-				this.getPostsByTag(routeParams.tag);
+				this.getPostsByTag(routeParams);
+			}else if(routeParams.page){
+				this.getPosts(routeParams);
 			}else{
 				this.postData = window.initialPostData;
 				this.trigger({
@@ -33,10 +35,12 @@ module.exports = Reflux.createStore({
 			}
 		}, this));
 	},
-	getPosts: function(options){
+	getPosts: function(routeParams){
 		http.get('/')
 			.query({
-				json: 1
+				json: 'get_posts',
+				ignore_sticky: routeParams.page > 1,
+				page: routeParams.page
 			})
 			.end(_.bind(function(err, res){
 				if(err){
@@ -46,11 +50,12 @@ module.exports = Reflux.createStore({
 				this.trigger({postData: this.postData});
 			}, this));
 	},
-	getPostsByCategory: function(categorySlug){
+	getPostsByCategory: function(routeParams){
 		http.get('/')
 			.query({
 				json: 'get_category_posts',
-				category_slug: categorySlug
+				category_slug: routeParams.category,
+				page: routeParams.page
 			})
 			.end(_.bind(function(err, res){
 				if(err){
@@ -62,11 +67,12 @@ module.exports = Reflux.createStore({
 				});
 			}, this));
 	},
-	getPostsByTag: function(tagSlug){
+	getPostsByTag: function(routeParams){
 		http.get('/')
 			.query({
 				json: 'get_tag_posts',
-				tag_slug: tagSlug
+				tag_slug: routeParams.tag,
+				page: routeParams.page
 			})
 			.end(_.bind(function(err, res){
 				if(err){

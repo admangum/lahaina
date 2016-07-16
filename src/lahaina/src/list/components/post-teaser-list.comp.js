@@ -5,6 +5,7 @@ var PostTeaser = require('./post-teaser.comp');
 var LoadingIndicator = require('../../common/components/loading.comp');
 var PostStore = require('../../core/stores/post.store');
 var Actions = require('../../core/actions/core.actions');
+var Link = require('react-router').Link;
 var utils = require('../../common/utils/layout.utils');
 var _ = require('lodash');
 var TRANSITION_OUT_DURATION = 1150;
@@ -25,9 +26,15 @@ module.exports = React.createClass({
 		window.removeEventListener('scroll', this.onWindowScroll);
 	},
 	componentDidUpdate: function(){
-		if(!this.state.layout){
+		var posts = this.state.postData.posts,
+			refs;
+		if(!this.state.layout && posts){
+			// because of transitions, some refs may linger
+			// that should not be considered as part of new layout,
+			// so only take refs for posts in this route
+			refs = _.toArray(this.refs).slice(0, posts.length);
 			this.setState({
-				layout: utils.getLayoutInfo(this.refs)
+				layout: utils.getLayoutInfo(refs)
 			});
 		}else if(this.state.firstLayout){
 			_.defer(function(that){
@@ -35,7 +42,6 @@ module.exports = React.createClass({
 					firstLayout: false
 				});
 			}, this);
-
 		}
 	},
 	componentWillReceiveProps: function(props){
@@ -87,8 +93,9 @@ module.exports = React.createClass({
 	},
 	getStyle: function(layout, posts){
 		try{
-			var last = layout[posts.length - 1];
-			return {height: last.y + last.h};
+			return {
+				height: utils.getLayoutHeight(layout)
+			};
 		}catch(err){
 			return {};
 		}
@@ -96,16 +103,39 @@ module.exports = React.createClass({
 	render: function() {
 		var state = this.state,
 			posts = state.postData.posts || [],
+			params = this.props.params,
 			style = this.getStyle(state.layout, posts),
-			className = this.getClassName(state.firstLayout);
-
+			className = this.getClassName(state.firstLayout),
+			getPaginationPath = function(params, index){
+				var path = [];
+				path.push(params.category ? 'category' : params.tag ? 'tag' : '');
+				path.push(params.category || params.tag || '');
+				path.push(index);
+				return _.compact(path).join('/');
+			},
+			getPagination = function(pages){
+				var pagination = [];
+				if(pages > 1){
+					_.times(state.postData.pages, function(index){
+						pagination.push(<li key={index}>
+							<Link to={getPaginationPath(params, index + 1)}>{index + 1}</Link>
+						</li>);
+					});
+				}
+				return pagination;
+			};
 		return (
+			<div>
 			<ReactCssTransitionGroup component="ul" className={className} style={style} transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={TRANSITION_OUT_DURATION}>
 				{posts.map(function(post, i){
 					return <PostTeaser ref={i} key={post.id} data={post} layout={state.layout && state.layout[i]} cols={state.cols}/>;
 				}, this)}
 				<LoadingIndicator key="loading-indicator" loading={state.loading} />
 			</ReactCssTransitionGroup>
+			<ol className="pagination">
+				{getPagination(state.postData.pages)}
+			</ol>
+			</div>
 		);
 	}
 });

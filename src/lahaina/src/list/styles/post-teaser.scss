@@ -94,3 +94,18 @@
     	font-size: 23px;
 	}
 }
+
+// pagination
+.pagination {
+    list-style: none;
+    overflow: hidden;
+    padding: 0;
+    width: 50%;
+    margin: 30px auto;
+    text-align: center;
+}
+
+.pagination li {
+	display: inline-block;
+	margin: 0 5px;
+}

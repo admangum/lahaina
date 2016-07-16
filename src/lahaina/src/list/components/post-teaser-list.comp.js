@@ -118,7 +118,7 @@ module.exports = React.createClass({
 				if(pages > 1){
 					_.times(state.postData.pages, function(index){
 						pagination.push(<li key={index}>
-							<Link to={getPaginationPath(params, index + 1)}>{index + 1}</Link>
+							<Link to={getPaginationPath(params, index + 1)} activeClassName="active">{index + 1}</Link>
 						</li>);
 					});
 				}

@@ -7,12 +7,12 @@ var animation = require('../../common/utils/animation.utils');
 module.exports = Reflux.createStore({
 	listenables: [Actions],
 	init: function(){
-		this.posts = window.initialPosts.posts;
+		this.postData = window.initialPostData;
 	},
 	onPostSelected: function(post){
-		this.posts = [];
+		this.postData = [];
 		this.trigger({
-			posts: this.posts,
+			postData: this.postData,
 			selectedPost: post
 		});
 	},
@@ -26,9 +26,9 @@ module.exports = Reflux.createStore({
 			}else if(routeParams.tag){
 				this.getPostsByTag(routeParams.tag);
 			}else{
-				this.posts = window.initialPosts.posts;
+				this.postData = window.initialPostData;
 				this.trigger({
-					posts: this.posts
+					postData: this.postData
 				});
 			}
 		}, this));
@@ -42,8 +42,8 @@ module.exports = Reflux.createStore({
 				if(err){
 					return console.log(err);
 				}
-				this.posts = res.body.posts;
-				this.trigger({posts: this.posts});
+				this.postData = res.body || {};
+				this.trigger({postData: this.postData});
 			}, this));
 	},
 	getPostsByCategory: function(categorySlug){
@@ -56,9 +56,9 @@ module.exports = Reflux.createStore({
 				if(err){
 					return console.log(err);
 				}
-				this.posts = res.body.posts || [];
+				this.postData = res.body || {};
 				this.trigger({
-					posts: this.posts
+					postData: this.postData
 				});
 			}, this));
 	},
@@ -72,12 +72,12 @@ module.exports = Reflux.createStore({
 				if(err){
 					return console.log(err);
 				}
-				this.posts = res.body.posts || [];
-				this.trigger({posts: this.posts});
+				this.postData = res.body || {};
+				this.trigger({postData: this.postData});
 			}, this));
 	},
 	getPostBySlug: function(slug){
-		var post = _(this.posts).find(function(p){
+		var post = _(this.postData).find(function(p){
 			return p.slug === slug;
 		});
 		return new Promise(function(resolve, reject){
@@ -98,6 +98,6 @@ module.exports = Reflux.createStore({
 		});
 	},
 	getInitialState: function(){
-		return this.posts;
+		return this.postData;
 	}
 });

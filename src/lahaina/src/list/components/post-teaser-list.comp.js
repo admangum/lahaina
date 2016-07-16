@@ -44,9 +44,9 @@ module.exports = React.createClass({
 		}
 	},
 	onPostsChange: function(data){
-		if(data.posts){
+		if(data.postData){
 			this.setState({
-				posts: data.posts,
+				postData: data.postData,
 				layout: null,
 				loading: false
 			});
@@ -75,7 +75,7 @@ module.exports = React.createClass({
 	},
 	getInitialState: function(){
 		return {
-			posts: [],
+			postData: {},
 			cols: utils.getColumnInfo(),
 			layout: null,
 			firstLayout: true,
@@ -95,12 +95,13 @@ module.exports = React.createClass({
 	},
 	render: function() {
 		var state = this.state,
-			style = this.getStyle(state.layout, state.posts),
+			posts = state.postData.posts || [],
+			style = this.getStyle(state.layout, posts),
 			className = this.getClassName(state.firstLayout);
 
 		return (
 			<ReactCssTransitionGroup component="ul" className={className} style={style} transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={TRANSITION_OUT_DURATION}>
-				{this.state.posts.map(function(post, i){
+				{posts.map(function(post, i){
 					return <PostTeaser ref={i} key={post.id} data={post} layout={state.layout && state.layout[i]} cols={state.cols}/>;
 				}, this)}
 				<LoadingIndicator key="loading-indicator" loading={state.loading} />

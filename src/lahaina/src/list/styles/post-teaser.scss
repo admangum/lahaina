@@ -20,7 +20,7 @@
 
 .post-teaser .post-title{
 	margin-top: 0;
-	margin-bottom: 7px;
+	margin-bottom: 4px;
 }
 
 
@@ -101,11 +101,25 @@
     overflow: hidden;
     padding: 0;
     width: 50%;
-    margin: 30px auto;
+    margin: 40px auto;
     text-align: center;
 }
 
 .pagination li {
 	display: inline-block;
-	margin: 0 5px;
+	a{
+		margin-top: 1px;
+	    display: block;
+	    font-size: 13px;
+	    color: #424242;
+	    border-radius: 10px;
+	    width: 19px;
+	    height: 19px;
+	    line-height: 19px;
+	    margin: 0 4px;
+	}
+	a.active{
+		border: solid 1px #464646;
+		margin: 0 2px;
+	}
 }

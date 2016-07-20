@@ -14,16 +14,11 @@ module.exports = React.createClass({
 	componentWillMount: function(){
 		this.listenTo(PostStore, this.onPostsChange);
 		this.onWindowResize = _.debounce(this.onWindowResize, 300);
-		this.onWindowScroll = _.debounce(this.onWindowScroll, 300);
 		window.addEventListener('resize', this.onWindowResize);
-		window.addEventListener('scroll', this.onWindowScroll);
-
 		this.onRouteChange(this.props.routeParams);
-
 	},
 	componentWillUnmount: function(){
 		window.removeEventListener('resize', this.onWindowResize);
-		window.removeEventListener('scroll', this.onWindowScroll);
 	},
 	componentDidUpdate: function(){
 		var posts = this.state.postData.posts,
@@ -75,9 +70,6 @@ module.exports = React.createClass({
 			cols: utils.getColumnInfo(),
 			layout: null
 		});
-	},
-	onWindowScroll: function(e){
-		console.log('scroll');
 	},
 	getInitialState: function(){
 		return {

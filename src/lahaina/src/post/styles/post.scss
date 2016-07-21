@@ -18,11 +18,12 @@
 	}
 }
 .post-title{
-    width: 60%;
+    overflow: hidden;
 	span{
 		background: black;
 		color: white;
     	font-size: 34px;
+    	display: block;
 	}
 }
 

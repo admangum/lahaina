@@ -2,6 +2,7 @@ var React = require('react');
 var PostStore = require('../../core/stores/post.store');
 var ReactCssTransitionGroup = require('react-addons-css-transition-group');
 var _ = require('lodash');
+var layout = require('../../common/utils/layout.utils');
 module.exports = React.createClass({
 	componentWillMount: function(){
 		this.onRouteChange(this.props);
@@ -10,6 +11,9 @@ module.exports = React.createClass({
 		if(props.location.action === 'POP' || props.location.pathname === '/'){
 			this.onRouteChange(props);
 		}
+	},
+	componentDidUpdate: function(){
+
 	},
 	onRouteChange: function(props){
 		PostStore.getPostBySlug(props.params.id).then(_.bind(function(post){
@@ -38,13 +42,19 @@ module.exports = React.createClass({
 			ready: false
 		};
 	},
+	getTitleStyle: function(){
+		var w = layout.getPageInfo().w * 0.6;
+		return {
+			width: w ? Math.round(w) + 'px' : '100%'
+		};
+	},
 	render: function(){
 		var post = this.post;
 		return this.state.ready && (
 			<ReactCssTransitionGroup component="div" transitionName="post" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={500}>
 				<article key={post.id} className={"post " + post.slug}>
 					<div className="inner">
-						<h1 className="post-title"><span dangerouslySetInnerHTML={{__html: post.title}}></span></h1>
+						<h1 className="post-title"><span style={this.getTitleStyle()} dangerouslySetInnerHTML={{__html: post.title}}></span></h1>
 						<div dangerouslySetInnerHTML={{__html: post.content}}/>
 					</div>
 				</article>

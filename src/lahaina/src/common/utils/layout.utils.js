@@ -39,6 +39,11 @@ var layoutUtils = {
 		return _.reduce(layoutInfo, function(memo, post){
 			return _.max([memo, post.y + post.h]);
 		}, 0);
+	},
+	getPageInfo: function(){
+		return {
+			w: document.getElementById('page').clientWidth
+		};
 	}
 };
 module.exports = layoutUtils;

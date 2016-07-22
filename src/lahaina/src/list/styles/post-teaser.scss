@@ -100,10 +100,16 @@
 .pagination {
     list-style: none;
     overflow: hidden;
-    padding: 0;
+    padding: 8px 0;
     width: 50%;
-    margin: 40px auto;
+    margin: 0;
     text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    border-top: solid black 1px;
+    width: 100%;
+    background: white;
 }
 
 .pagination li {

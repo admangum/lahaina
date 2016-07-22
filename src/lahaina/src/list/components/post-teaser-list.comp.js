@@ -114,7 +114,7 @@ module.exports = React.createClass({
 						</li>);
 					});
 				}
-				return pagination;
+				return pagination.length ? (<ol className="pagination">{pagination}</ol>) : null;
 			};
 		return (
 			<div>
@@ -124,9 +124,7 @@ module.exports = React.createClass({
 				}, this)}
 				<LoadingIndicator key="loading-indicator" loading={state.loading} />
 			</ReactCssTransitionGroup>
-			<ol className="pagination">
-				{getPagination(state.postData.pages)}
-			</ol>
+			{getPagination(state.postData.pages)}
 			</div>
 		);
 	}

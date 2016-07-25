@@ -3,12 +3,12 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     z-index: -1;
-    overflow: hidden;
 }
 .post > .inner{
 	padding: 75px 20px;
+	overflow: hidden;
 }
 .post .post-title{
 	margin-left: -20px;
@@ -20,34 +20,36 @@
 }
 .post-title{
 	span{
-		background: black;
+		background: #232323;
 		color: white;
     	font-size: 34px;
 	}
 }
 
 //enter
-.post.post-appear,
-.post.post-enter{
+.post.post-appear > .inner,
+.post.post-enter > .inner{
 	width: 0;
+	opacity: 0.1;
 	.post-title + div{
 		opacity: 0.01;
 	}
 }
-.post.post-appear-active,
-.post.post-enter-active{
+.post.post-appear-active > .inner,
+.post.post-enter-active > .inner{
 	width: 100%;
-	transition: width .6s ease-out;
+	opacity: 1;
+	transition: width .5s cubic-bezier(.42,.03,.4,1), opacity .4s ease-out;
 	.post-title + div{
 		opacity: 1;
-		transition: opacity .4s ease-in-out .6s;
+		transition: opacity .5s ease-out .6s;
 	}
 }
 
-.post-leave{
+.post-leave > .inner{
 	opacity: 1;
 }
-.post-leave-active{
+.post-leave-active > .inner{
 	opacity: 0;
 	transition: opacity .3s ease-in;
 }

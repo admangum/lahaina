@@ -53,13 +53,8 @@ footer#colophon {
 .loading-indicator [class^=icon] {
     display: block;
     position: absolute;
-    // width: 20px;
-    // height: 20px;
     left: 50%;
     top: 50%;
-    // margin: -10px 0 0 -10px;
-    // text-indent: 200%;
-    // overflow: hidden;
     font-size: 20px;
 }
 
@@ -78,5 +73,5 @@ footer#colophon {
 
 .loading-indicator.post-teaser-leave-active {
     opacity: 0;
-    transition: opacity .5s;
+    transition: opacity .5s linear .5s;
 }

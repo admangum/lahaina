@@ -58,9 +58,9 @@
 		color: black;
 		transition: color .5s ease-in .25s;
 	}
-	.post-category{
-		color: #F52051;
-		transition: color .5s ease-in .25s;
+	.post-category a{
+		opacity: 0;
+		transition: opacity .4s ease-in .2s;
 	}
 	.post-tag-list, p, img{
 		opacity: 0.01;
@@ -96,17 +96,14 @@
 	}
 }
 
-// pagination
+
 .pagination {
     list-style: none;
     overflow: hidden;
-    padding: 8px 0;
+    padding: 10px 0;
     width: 50%;
     margin: 0;
     text-align: center;
-    position: fixed;
-    bottom: 0;
-    left: 0;
     border-top: solid black 1px;
     width: 100%;
     background: white;
@@ -130,5 +127,6 @@
 		background-color: #232323;
 		color: white;
 		margin: 0 2px;
+		-webkit-font-smoothing: antialiased;
 	}
 }

@@ -7,7 +7,7 @@
 }
 
 .post-category{
-	background: #F52051;
+	background: #242424;
     padding: 1px 5px;
     color: #FFEDF1;
     font-size: 11px;
@@ -27,4 +27,34 @@
 }
 .post-tag:before{
 	content: '#';
+}
+
+.category-art{
+	background-color: #f5073f;
+	color: #fbe8ec;
+}
+
+.category-food{
+	background-color: #fd9822;
+	color: #754a18;
+}
+
+.category-home{
+	background-color: #FABE28;
+	color: #674c0a;
+}
+
+.category-music{
+	background-color: #96d207;
+	color: #405805;
+}
+
+.category-style{
+	background-color: #14d087;
+	color: #05482e;
+}
+
+.category-travel{
+	background-color: #35a8d6;
+	color: #043f56;
 }

@@ -20,7 +20,6 @@ module.exports = React.createClass({
 		var data = this.props.data,
 			layout = this.props.layout,
 			cols = this.props.cols,
-			className = 'post-teaser',
 			width = cols.colWidth + 'px',
 			style = {
 				width: width
@@ -36,7 +35,7 @@ module.exports = React.createClass({
 			}
 		}
 
-		return (<li ref={data.id} className={className} style={style} onClick={this.onClick}>
+		return (<li ref={data.id} className={'post-teaser'} style={style} onClick={this.onClick}>
 					{imgUtils.getTeaserImage(data, {width: config.layout.minColWidth})}
 					<PostTags data={data.categories} type="category" />
 					<h2 className="post-title" style={{width:width}}>

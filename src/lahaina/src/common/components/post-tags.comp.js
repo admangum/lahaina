@@ -10,11 +10,16 @@ module.exports = React.createClass({
 
 		function getItem(item){
 			return (
-				<li key={type + '-' + item.id} className={'post-' + type}>
+				<li key={type + '-' + item.id} className={('post-' + type) + ' ' + getTaxonomyClasses(item)}>
 					<Link to={type + '/' + item.slug + '/1'}>{item.title}</Link>
 				</li>
 			);
 		}
+
+		function getTaxonomyClasses(item){
+			return type + '-' + item.slug;
+		}
+
 		return (
 			<ul className={'post-classification-list post-' + type + '-list'} onClick={this.onClick}>{this.props.data.map(getItem)}</ul>
 		);

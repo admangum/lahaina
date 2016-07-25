@@ -1,5 +1,6 @@
 var React = require('react');
 var PostStore = require('../../core/stores/post.store');
+var PostTags = require('../../common/components/post-tags.comp');
 var ReactCssTransitionGroup = require('react-addons-css-transition-group');
 var _ = require('lodash');
 var layout = require('../../common/utils/layout.utils');
@@ -54,6 +55,7 @@ module.exports = React.createClass({
 			<ReactCssTransitionGroup component="div" transitionName="post" transitionAppear={true} transitionAppearTimeout={1000} transitionEnterTimeout={1000} transitionLeaveTimeout={500}>
 				<article key={post.id} className={"post " + post.slug}>
 					<div className="inner">
+						<PostTags data={post.categories} type="category" />
 						<h1 style={this.getTitleStyle()} className="post-title"><span dangerouslySetInnerHTML={{__html: post.title}}></span></h1>
 						<div dangerouslySetInnerHTML={{__html: post.content}}/>
 					</div>

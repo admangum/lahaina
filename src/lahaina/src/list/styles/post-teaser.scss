@@ -103,7 +103,7 @@
     width: 50%;
     margin: 0;
     text-align: center;
-    border-top: solid black 1px;
+    border-top: solid $title-bg-color 1px;
     width: 100%;
     background: white;
 }
@@ -122,8 +122,8 @@
 	    margin: 0 4px;
 	}
 	a.active{
-		border: solid 1px #232323;
-		background-color: #232323;
+		border: solid 1px $title-bg-color;
+		background-color: $title-bg-color;
 		color: white;
 		margin: 0 2px;
 		-webkit-font-smoothing: antialiased;

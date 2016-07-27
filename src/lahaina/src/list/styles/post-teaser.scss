@@ -1,3 +1,4 @@
+@import 'src/common/styles/variables';
 .post-teaser-list{
 	list-style: none;
 	margin: 0;
@@ -55,7 +56,7 @@
 	transition: width .45s cubic-bezier(.42,.03,.4,1) .7s, opacity .25s linear .8s;
 
 	.post-title span{
-		color: black;
+		color: $title-bg-color;
 		transition: color .5s ease-in .25s;
 	}
 	.post-category a{
@@ -89,8 +90,6 @@
 .post-teaser .post-title {
 	width: 95%;
 	span{
-		background: black;
-    	color: white;
     	line-height: 1.25em;
     	font-size: 23px;
 	}

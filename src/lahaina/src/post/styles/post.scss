@@ -1,3 +1,4 @@
+@import 'src/common/styles/variables';
 .post{
 	position: absolute;
     top: 0;
@@ -14,14 +15,14 @@
 	margin-left: -20px;
 	margin-top: 0;
 	padding-left: 20px;
-	background: linear-gradient(to right, rgba(0,0,0,1) 20px,rgba(255,255,255,0) 20px);
+	background: linear-gradient(to right, $title-bg-color 20px,rgba(255,255,255,0) 20px);
 	span{
 		padding-right: 5px;
 	}
 }
 .post-title{
 	span{
-		background: #232323;
+		background: $title-bg-color;
 		color: white;
     	font-size: 34px;
 	}
@@ -40,19 +41,33 @@
 .post.post-appear > .inner,
 .post.post-enter > .inner{
 	width: 0;
-	opacity: 0.1;
+	// opacity: 0.1;
+	.post-title span{
+		color: #232323;
+	}
 	.post-title + div{
+		opacity: 0.01;
+	}
+	.post-category a{
 		opacity: 0.01;
 	}
 }
 .post.post-appear-active > .inner,
 .post.post-enter-active > .inner{
 	width: 100%;
-	opacity: 1;
-	transition: width .5s cubic-bezier(.42,.03,.4,1), opacity .4s ease-out;
+	// opacity: 1;
+	transition: width .5s cubic-bezier(.42,.03,.4,1);
+	.post-title span{
+		color: white;
+		transition: color .5s ease-out .5s;
+	}
 	.post-title + div{
 		opacity: 1;
 		transition: opacity .5s ease-out .6s;
+	}
+	.post-category a{
+		opacity: 1;
+		transition: opacity .5s ease-out .5s;
 	}
 }
 

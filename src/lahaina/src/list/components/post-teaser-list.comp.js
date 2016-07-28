@@ -2,8 +2,8 @@ var React = require('react');
 var Reflux = require('reflux');
 var ReactCssTransitionGroup = require('react-addons-css-transition-group');
 var PostTeaser = require('./post-teaser.comp');
-var LoadingIndicator = require('../../common/components/loading.comp');
 var Footer = require('../../common/components/footer.comp');
+var LoadingIndicator = require('../../common/components/loading.comp');
 var PostStore = require('../../core/stores/post.store');
 var Actions = require('../../core/actions/core.actions');
 var Link = require('react-router').Link;
@@ -116,10 +116,10 @@ module.exports = React.createClass({
 					});
 				}
 				return pagination.length ? (<ol className="pagination">{pagination}</ol>) : null;
-			};
+			},
 			getFooter = function(){
 				if(posts.length){
-					return (<Footer/>);
+					return (<Footer />);
 				}
 			};
 		return (

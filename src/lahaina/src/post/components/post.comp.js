@@ -2,6 +2,7 @@ var React = require('react');
 var PostStore = require('../../core/stores/post.store');
 var PostTags = require('../../common/components/post-tags.comp');
 var ReactCssTransitionGroup = require('react-addons-css-transition-group');
+var Footer = require('../../common/components/footer.comp');
 var _ = require('lodash');
 var layout = require('../../common/utils/layout.utils');
 module.exports = React.createClass({
@@ -59,6 +60,7 @@ module.exports = React.createClass({
 						<h1 style={this.getTitleStyle()} className="post-title"><span dangerouslySetInnerHTML={{__html: post.title}}></span></h1>
 						<div dangerouslySetInnerHTML={{__html: post.content}}/>
 					</div>
+					<Footer />
 				</article>
 			</ReactCssTransitionGroup>
 		);

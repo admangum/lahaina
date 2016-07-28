@@ -1,5 +1,6 @@
 var config = require('../config/config').layout;
 var _ = require('lodash');
+var cache = {};
 var layoutUtils = {
 	getLayoutInfo: function(refs){
 		var colInfo = layoutUtils.getColumnInfo(),
@@ -36,9 +37,14 @@ var layoutUtils = {
 		};
 	},
 	getLayoutHeight: function(layoutInfo){
-		return _.reduce(layoutInfo, function(memo, post){
-			return _.max([memo, post.y + post.h]);
-		}, 0);
+		var result = {
+				layoutHeight: _.reduce(layoutInfo, function(memo, post){
+					return _.max([memo, post.y + post.h]);
+				}, 0),
+				previousLayoutHeight: cache.layoutHeight
+			};
+		cache.layoutHeight = result.layoutHeight;
+		return result;
 	},
 	getPageInfo: function(){
 		return {

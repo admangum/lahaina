@@ -13,6 +13,7 @@ var TRANSITION_OUT_DURATION = 1150;
 module.exports = React.createClass({
 	mixins: [Reflux.ListenerMixin],
 	componentWillMount: function(){
+		console.log('>> mount');
 		this.listenTo(PostStore, this.onPostsChange);
 		this.onWindowResize = _.debounce(this.onWindowResize, 300);
 		window.addEventListener('resize', this.onWindowResize);
@@ -85,10 +86,10 @@ module.exports = React.createClass({
 		return 'post-teaser-list' + (firstLayout ? ' first-layout' : '');
 	},
 	getStyle: function(layout, posts){
+		var l = utils.getLayoutHeight(layout),
+			h = l.layoutHeight || l.previousLayoutHeight;
 		try{
-			return {
-				height: utils.getLayoutHeight(layout)
-			};
+			return h ? { height: h} : {};
 		}catch(err){
 			return {};
 		}

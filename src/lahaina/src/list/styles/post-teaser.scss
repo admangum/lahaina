@@ -1,9 +1,14 @@
 @import 'src/common/styles/variables';
 .post-teaser-list{
 	list-style: none;
-	margin: 0;
+	margin: 0 0 50px;
 	padding: 0;
 	min-height: 1px;
+	opacity: 1;
+	transition: opacity .5s ease-out .3s, height .4s ease-in-out;
+}
+.post-teaser-list.first-layout{
+	transition: opacity .5s ease-out;
 }
 .post-teaser{
 	position: absolute;
@@ -29,10 +34,6 @@
 // appear
 .post-teaser-list.first-layout{
 	opacity: 0.01;
-}
-.post-teaser-list{
-	opacity: 1;
-	transition: opacity .5s ease-out;
 }
 .post-teaser.post-teaser-appear{
 	opacity: 0.01;

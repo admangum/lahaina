@@ -29,8 +29,11 @@ a:hover {
 
 footer#colophon {
     font-size: 11px;
-    padding: 2px 3px;
-    color: $title-bg-color;
+    color: white;
+    background-color: $title-bg-color;
+    min-height: 500px;
+    position: relative;
+    z-index: 1;
 }
 
 .loading-indicator {
@@ -48,6 +51,7 @@ footer#colophon {
     left: 50%;
     top: 50%;
     font-size: 20px;
+    margin-top: -100px;
 }
 
 .loading-indicator.post-teaser-appear {

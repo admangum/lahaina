@@ -1,18 +1,12 @@
 @import 'src/common/styles/variables';
 .post{
-	position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    min-height: 100%;
-    z-index: -1;
+    margin-left: -($page-margin);
+    margin-right: -($page-margin);
 }
 .post > .inner{
-	padding: $header-height 20px;
 	overflow: hidden;
 }
 .post .post-title{
-	margin-left: -20px;
 	margin-top: 0;
 	padding-left: 20px;
 	background: linear-gradient(to right, $dark 20px,rgba(255,255,255,0) 20px);
@@ -28,8 +22,12 @@
 	}
 }
 
+.post-title + div{
+	padding: 20px;
+}
+
 .post .post-category-list{
-	margin: 0 0 5px -20px;
+	margin: 0 0 5px;
 }
 .post .post-category{
 	font-size: 12px;

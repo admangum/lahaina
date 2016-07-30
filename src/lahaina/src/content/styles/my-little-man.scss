@@ -1,8 +1,12 @@
-.post.post-appear.my-little-man{
+// .post-my-little-man .post.post-appear{
+// 	background: none;
+// }
+// .post-my-little-man .post,
+// .post-my-little-man .post.post-appear-active{
+body{
 	background: none;
 }
-.post.my-little-man,
-.post.post-appear-active.my-little-man{
+body.post-my-little-man{
 	background: pink;
 	transition: background 1s ease-out;
 }

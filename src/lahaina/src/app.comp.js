@@ -5,7 +5,9 @@ module.exports = React.createClass({
 	render: function(){
 		return (
 			<div>
-				<h1><IndexLink to="1">*</IndexLink></h1>
+				<header>
+					<h1><IndexLink to="1">*</IndexLink></h1>
+				</header>
 				{this.props.children}
 			</div>
 		);

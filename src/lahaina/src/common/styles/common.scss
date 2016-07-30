@@ -27,10 +27,15 @@ a:hover {
     text-decoration: underline;
 }
 
+header{
+    overflow: hidden;
+    height: $header-height;
+}
+
 footer#colophon {
     font-size: 11px;
     color: white;
-    background-color: $title-bg-color;
+    background-color: $dark;
     min-height: 500px;
     position: relative;
     z-index: 1;

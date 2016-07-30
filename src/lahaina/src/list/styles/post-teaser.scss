@@ -57,7 +57,7 @@
 	transition: width .45s cubic-bezier(.42,.03,.4,1) .7s, opacity .25s linear .8s;
 
 	.post-title span{
-		color: $title-bg-color;
+		color: $dark;
 		transition: color .5s ease-in .25s;
 	}
 	.post-category a{
@@ -104,7 +104,7 @@
     width: 50%;
     margin: 0 0 20px;
     text-align: center;
-    border-top: solid $title-bg-color 1px;
+    border-top: solid $dark 1px;
     width: 100%;
     background: white;
 }
@@ -123,8 +123,8 @@
 	    margin: 0 4px;
 	}
 	a.active{
-		border: solid 1px $title-bg-color;
-		background-color: $title-bg-color;
+		border: solid 1px $dark;
+		background-color: $dark;
 		color: white;
 		margin: 0 2px;
 		-webkit-font-smoothing: antialiased;

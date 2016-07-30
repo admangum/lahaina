@@ -8,21 +8,21 @@
     z-index: -1;
 }
 .post > .inner{
-	padding: 75px 20px;
+	padding: $header-height 20px;
 	overflow: hidden;
 }
 .post .post-title{
 	margin-left: -20px;
 	margin-top: 0;
 	padding-left: 20px;
-	background: linear-gradient(to right, $title-bg-color 20px,rgba(255,255,255,0) 20px);
+	background: linear-gradient(to right, $dark 20px,rgba(255,255,255,0) 20px);
 	span{
 		padding-right: 5px;
 	}
 }
 .post-title{
 	span{
-		background: $title-bg-color;
+		background: $dark;
 		color: white;
     	font-size: 34px;
 	}

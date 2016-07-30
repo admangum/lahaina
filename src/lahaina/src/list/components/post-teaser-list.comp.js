@@ -13,7 +13,6 @@ var TRANSITION_OUT_DURATION = 1150;
 module.exports = React.createClass({
 	mixins: [Reflux.ListenerMixin],
 	componentWillMount: function(){
-		console.log('>> mount');
 		this.listenTo(PostStore, this.onPostsChange);
 		this.onWindowResize = _.debounce(this.onWindowResize, 300);
 		window.addEventListener('resize', this.onWindowResize);
@@ -28,7 +27,7 @@ module.exports = React.createClass({
 		if(!this.state.layout && posts){
 			// because of transitions, some refs may linger
 			// that should not be considered as part of new layout,
-			// so only take refs for posts in this route
+			// so only take refs for posts in this route (they're ordered!)
 			refs = _.toArray(this.refs).slice(0, posts.length);
 			this.setState({
 				layout: utils.getLayoutInfo(refs)

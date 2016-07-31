@@ -17,7 +17,7 @@ function transformDimensions(options){
 	}
 	return {
 		width: constraints.width,
-		height: (constraints.width / dimensions.width) * dimensions.height
+		height: Math.round((constraints.width / dimensions.width) * dimensions.height)
 	};
 }
 
@@ -26,16 +26,32 @@ utils = {
 		try{
 			var attachment = getTeaserImageAttachment(post),
 				dimensions;
-			dimensions = transformDimensions({
-				dimensions: attachment.images.full,
-				constraints: constraints
-			});
-			return (
-				<img src={attachment.images.full.url} width={dimensions.width} height={dimensions.height}/>
-			);
+			if(constraints){
+				dimensions = transformDimensions({
+					dimensions: attachment.images.full,
+					constraints: constraints
+				});
+				return (
+					<img src={attachment.images.full.url} width={dimensions.width} height={dimensions.height}/>
+				);
+			}
+			return (<img src={attachment.images.full.url}/>)
 		}catch(err){
 			return null;
 		}
+	},
+	getTeaserImageConstraints: function(width, height){
+		var constraints = {};
+		if(!width && !height){
+			return null;
+		}
+		if(width){
+			constraints.width = width;
+		}
+		if(height){
+			constraints.height = height;
+		}
+		return constraints;
 	}
 };
 

@@ -28,17 +28,31 @@ module.exports = React.createClass({
 			return <PostTeaser key={post.id} data={post} />
 		});
 	},
+	getCategoryItems: function(categories){
+		return (<li className="category"></li>);
+	},
+	getTagItems: function(categories){
+		return (<li className="tag"></li>);
+	},
 	render: function(){
 		var content = this.state.content;
 
 
 		return (content && <footer id="colophon" role="contentinfo">
 	  <div className="inner">
-	  	<div>
+	  	<div className="featured">
 			<h3>Featured</h3>
 			<ul className="post-teaser-list">
 				{this.getTeasers(content.featured)}
 			</ul>
+		 </div>
+		 <div className="taxonomy">
+		 	<ul className="category-list">
+
+		 	</ul>
+		 	<ul className="tag-list">
+
+		 	</ul>
 		 </div>
 		<div className="site-info">
 			<a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">Proudly powered by WordPress</a>

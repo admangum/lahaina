@@ -1,4 +1,5 @@
 var _ = require('lodash'),
+	promise = require('../common/utils/promise.utils'),
 	http = require('superagent'),
 	Reflux = require('reflux'),
 	Actions = require('./footer.actions');
@@ -14,7 +15,9 @@ module.exports = Reflux.createStore({
 		}
 	},
 	getListBasedContent: function(list){
-		http.get('/')
+		var store = this,
+			content = {};
+		var postPromise = http.get('/')
 			.query({
 				json: 'get_posts',
 				post_type: 'post',
@@ -23,20 +26,30 @@ module.exports = Reflux.createStore({
 					return post.id.toString();
 				})
 			})
-			.end(_.bind(function(err, res){
+			.end(function(err, res){
 				if(err){
 
 				}else{
-					this.data = res.body;
-					this.dispatchListBasedContent(res.body);
+					content = {
+						featured: res.body.posts.slice(0, 2),
+						more: res.body.posts.slice(2)
+					};
+					return http.get('/')
+						.query({
+							json: ''
+						})
 				}
-			}, this));
+			});
+		promise.all(postPromise).done(function(results){
+			store.dispatchListBasedContent(results[0].value.body, list);
+		});
 	},
 	dispatchListBasedContent: function(data, list){
+		var posts = data.posts || [];
 		this.trigger({
 			content: {
-				featured: data.posts.slice(0, 2),
-				more: data.posts.slice(2)
+				featured: posts.slice(0, 2),
+				more: posts.slice(2)
 			}
 		});
 	}

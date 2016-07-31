@@ -1,15 +1,19 @@
 @import '../common/styles/variables';
 footer {
     font-size: 11px;
-    color: white;
+    color: $light;
     background-color: $dark;
     min-height: 500px;
     position: relative;
     z-index: 1;
     margin-left: -$page-margin;
     margin-right: -$page-margin;
+    font-size: 14px;
     .inner{
         padding: 20px;
+    }
+    a{
+        color: $light-a;
     }
 }
 

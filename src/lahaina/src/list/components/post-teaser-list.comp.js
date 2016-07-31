@@ -119,7 +119,7 @@ module.exports = React.createClass({
 			},
 			getFooter = function(){
 				if(posts.length){
-					return (<Footer routeParams={params} />);
+					return (<Footer list={posts} />);
 				}
 			};
 		return (

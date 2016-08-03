@@ -28,8 +28,10 @@ module.exports = React.createClass({
 			return <PostTeaser key={post.id} data={post} />
 		});
 	},
-	getCategoryItems: function(categories){
-		return (<li className="category"></li>);
+	getTaxonomyItems: function(list, type){
+		return list.map(function(item){
+			return (<li key={type + '-' + item.id} className={type}>{item.title}</li>);
+		});
 	},
 	getTagItems: function(categories){
 		return (<li className="tag"></li>);
@@ -42,17 +44,30 @@ module.exports = React.createClass({
 	  <div className="inner">
 	  	<div className="featured">
 			<h3>Featured</h3>
-			<ul className="post-teaser-list">
-				{this.getTeasers(content.featured)}
-			</ul>
+			<div className="post-teaser-list">
+				<ul>
+					{this.getTeasers(content.posts[0])}
+				</ul>
+			</div>
+			<div className="post-teaser-list">
+				<ul>
+					{this.getTeasers(content.posts[1])}
+				</ul>
+			</div>
 		 </div>
 		 <div className="taxonomy">
-		 	<ul className="category-list">
-
-		 	</ul>
-		 	<ul className="tag-list">
-
-		 	</ul>
+		 	<div className="categories">
+			 	<h3>Categories</h3>
+			 	<ul className="category-list">
+			 		{this.getTaxonomyItems(content.categories, 'category')}
+			 	</ul>
+		 	</div>
+		 	<div className="tags">
+			 	<h3>Tags</h3>
+			 	<ul className="tag-list">
+			 		{this.getTaxonomyItems(content.tags, 'tag')}
+			 	</ul>
+		 	</div>
 		 </div>
 		<div className="site-info">
 			<a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">Proudly powered by WordPress</a>

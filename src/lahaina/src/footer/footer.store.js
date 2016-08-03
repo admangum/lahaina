@@ -1,5 +1,5 @@
 var _ = require('lodash'),
-	promise = require('../common/utils/promise.utils'),
+	httpUtils = require('../common/utils/http.utils'),
 	http = require('superagent'),
 	Reflux = require('reflux'),
 	Actions = require('./footer.actions');
@@ -16,40 +16,49 @@ module.exports = Reflux.createStore({
 	},
 	getListBasedContent: function(list){
 		var store = this,
-			content = {};
-		var postPromise = http.get('/')
+			content = [];
+
+		content.push(http.get('/')
 			.query({
 				json: 'get_posts',
 				post_type: 'post',
 				ignore_sticky_posts: 0,
+				count: 4,
 				'post__not_in[]': _.map(list, function(post){
 					return post.id.toString();
 				})
-			})
-			.end(function(err, res){
-				if(err){
+			}));
 
-				}else{
-					content = {
-						featured: res.body.posts.slice(0, 2),
-						more: res.body.posts.slice(2)
-					};
-					return http.get('/')
-						.query({
-							json: ''
-						})
-				}
-			});
-		promise.all(postPromise).done(function(results){
-			store.dispatchListBasedContent(results[0].value.body, list);
-		});
+		content.push(http.get('/')
+			.query({
+				json: 'get_category_index'
+			}));
+
+		content.push(http.get('/')
+			.query({
+				json: 'get_tag_index'
+			}));
+
+		httpUtils.request.all(content).done(_.bind(this.dispatchListBasedContent, this));
 	},
-	dispatchListBasedContent: function(data, list){
-		var posts = data.posts || [];
+	dispatchListBasedContent: function(posts, categories, tags){
+		var content = {},
+			half;
+
+		posts = httpUtils.response.get(posts, 'posts');
+		categories = httpUtils.response.get(categories, 'categories');
+		tags = httpUtils.response.get(tags, 'tags');
+
+		half = posts.length > 1 ? Math.ceil(posts.length / 2) : 1;
+
 		this.trigger({
 			content: {
-				featured: posts.slice(0, 2),
-				more: posts.slice(2)
+				posts: [
+					posts.slice(0, half),
+					posts.slice(half)
+				],
+				categories: categories,
+				tags: tags
 			}
 		});
 	}

@@ -1,9 +1,10 @@
-.post-classification-list{
+.post-taxonomy-list{
 	padding-left: 0;
 	list-style: none;
 	overflow: hidden;
 	font-size: 13px;
-	white-space: nowrap;
+	max-width: 70%;
+	margin-bottom: 4px;
 }
 
 .post-category{
@@ -11,8 +12,7 @@
     padding: 1px 5px;
     color: #FFEDF1;
     font-size: 11px;
-    display: inline-block;
-    margin-bottom: 4px;
+    float: left;
     a{
 		color: inherit;
 	}

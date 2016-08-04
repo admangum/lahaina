@@ -30,7 +30,7 @@ module.exports = React.createClass({
 	},
 	getTaxonomyItems: function(list, type){
 		return list.map(function(item){
-			return (<li key={type + '-' + item.id} className={type}>{item.title}</li>);
+			return (<li key={type + '-' + item.id} className={type + '-' + item.slug + ' post-' + type}>{item.title}</li>);
 		});
 	},
 	getTagItems: function(categories){
@@ -42,7 +42,7 @@ module.exports = React.createClass({
 
 		return (content && <footer id="colophon" role="contentinfo">
 	  <div className="inner">
-	  	<div className="featured">
+	  	<div className="featured section">
 			<h3>Featured</h3>
 			<div className="post-teaser-list">
 				<ul>
@@ -55,19 +55,23 @@ module.exports = React.createClass({
 				</ul>
 			</div>
 		 </div>
-		 <div className="taxonomy">
+		 <div className="taxonomy section">
 		 	<div className="categories">
 			 	<h3>Categories</h3>
-			 	<ul className="category-list">
+			 	<ul className="category-list post-taxonomy-list">
 			 		{this.getTaxonomyItems(content.categories, 'category')}
 			 	</ul>
 		 	</div>
 		 	<div className="tags">
 			 	<h3>Tags</h3>
-			 	<ul className="tag-list">
+			 	<ul className="tag-list post-taxonomy-list">
 			 		{this.getTaxonomyItems(content.tags, 'tag')}
 			 	</ul>
 		 	</div>
+		 </div>
+		 <div className="about section">
+		 	<h3>What is this?</h3>
+		 	<p>This is...</p>
 		 </div>
 		<div className="site-info">
 			<a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">Proudly powered by WordPress</a>

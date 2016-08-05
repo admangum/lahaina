@@ -15,12 +15,12 @@ module.exports = {
             query: {
                 presets: ['react']
             }
-        }
-        // , {
-        //     test: /\.css$/,
-        //     loader: 'style-loader!css-loader'
-        // }
-        ]
+        }, {
+          test: /\.svg$/,
+          loader: 'svg-sprite?' + JSON.stringify({
+            name: '[name]_[hash]'
+          })
+        }]
     },
     devtool: '#source-map',
     resolve: {

@@ -45,6 +45,7 @@
     "reactify": "^1.1.1",
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
+    "svg-sprite-loader": "0.0.26",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0",

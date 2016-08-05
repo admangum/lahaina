@@ -50,7 +50,7 @@ module.exports = React.createClass({
 			this.setState({
 				postData: data.postData,
 				selectedPost: data.selectedPost,
-				// layout: null,
+				layout: null,
 				loading: false
 			});
 		}else{

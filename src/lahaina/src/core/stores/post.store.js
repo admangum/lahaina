@@ -10,7 +10,6 @@ module.exports = Reflux.createStore({
 		this.postData = window.initialPostData;
 	},
 	onPostSelected: function(post){
-		this.postData = [];
 		this.trigger({
 			postData: this.postData,
 			selectedPost: post

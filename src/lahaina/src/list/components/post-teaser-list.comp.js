@@ -5,7 +5,6 @@ var PostTeaser = require('./post-teaser.comp');
 var Footer = require('../../footer/components/footer.comp');
 var LoadingIndicator = require('../../common/components/loading.comp');
 var PostStore = require('../../core/stores/post.store');
-var Actions = require('../../core/actions/core.actions');
 var Link = require('react-router').Link;
 var utils = require('../../common/utils/layout.utils');
 var _ = require('lodash');
@@ -17,7 +16,6 @@ module.exports = React.createClass({
 		this.listenTo(PostStore, this.onPostsChange);
 		this.onWindowResize = _.debounce(this.onWindowResize, 300);
 		window.addEventListener('resize', this.onWindowResize);
-		this.onRouteChange(this.props.routeParams);
 	},
 	componentWillUnmount: function(){
 		window.removeEventListener('resize', this.onWindowResize);
@@ -41,11 +39,7 @@ module.exports = React.createClass({
 			}, this);
 		}
 	},
-	componentWillReceiveProps: function(props){
-		if(props.location.action === 'POP' || props.location.pathname === '/'){
-			this.onRouteChange(props.routeParams);
-		}
-	},
+
 	onPostsChange: function(data){
 		if(data.postData){
 			this.setState({
@@ -60,9 +54,7 @@ module.exports = React.createClass({
 			});
 		}
 	},
-	onRouteChange: function(routeParams){
-		Actions.routeChanged(routeParams);
-	},
+
 	onWindowResize: function(){
 		this.setState({
 			cols: utils.getColumnInfo(),

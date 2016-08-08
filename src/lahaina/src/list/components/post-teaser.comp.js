@@ -6,12 +6,24 @@ var Actions = require('../../core/actions/core.actions');
 var _ = require('lodash');
 var imgUtils = require('../../common/utils/img.utils');
 var config = require('../../common/config/config');
+var ListConfig = require('../config/list.config');
+var animation = require('../../common/utils/animation.utils');
 
 module.exports = React.createClass({
 	onClick: function(){
 		var post = this.props.data;
 		this.refs[post.id].classList.add('selected');
 		Actions.postSelected(post);
+
+		if(this.props.context === 'FOOTER'){
+			animation.scrollToTop().then(function(){
+				location.hash = '/post/' + post.slug;
+			});
+		}else{
+			_.delay(function(){
+				location.hash = '/post/' + post.slug;
+			}, ListConfig.TRANSITION_OUT_DURATION);
+		}
 	},
 	getRef: function(){
 		return this.refs[this.props.data.id];

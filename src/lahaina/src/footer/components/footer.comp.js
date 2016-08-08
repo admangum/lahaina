@@ -11,9 +11,6 @@ module.exports = React.createClass({
 		this.listenTo(Store, this.onStoreUpdate);
 		Actions.routeChanged(this.props.list, this.props.post);
 	},
-	componentWillReceiveProps: function(props){
-		// Actions.routeChanged(props.list, props.post);
-	},
 	onStoreUpdate: function(data){
 		this.setState({
 			content: data.content
@@ -26,7 +23,7 @@ module.exports = React.createClass({
 	},
 	getTeasers: function(posts){
 		return _.map(posts, function(post){
-			return <PostTeaser key={post.id} data={post} />
+			return <PostTeaser key={post.id} data={post} context="FOOTER" />
 		});
 	},
 	getTaxonomyItems: function(list, type){
@@ -37,6 +34,9 @@ module.exports = React.createClass({
 	getTagItems: function(categories){
 		return (<li className="tag"></li>);
 	},
+	getFeatured: function(content){
+
+	},
 	render: function(){
 		var content = this.state.content;
 
@@ -45,7 +45,7 @@ module.exports = React.createClass({
 	  <div className="inner">
 	  	<div className="featured section">
 	  		<div className="inner">
-				<h3>Featured</h3>
+				<h3>{this.props.post ? 'Related' : 'Featured'}</h3>
 				<div className="post-teaser-list">
 					<ul>
 						{this.getTeasers(content.posts[0])}

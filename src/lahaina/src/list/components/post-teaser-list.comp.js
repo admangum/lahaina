@@ -9,7 +9,8 @@ var Actions = require('../../core/actions/core.actions');
 var Link = require('react-router').Link;
 var utils = require('../../common/utils/layout.utils');
 var _ = require('lodash');
-var TRANSITION_OUT_DURATION = 1150;
+var ListConfig = require('../config/list.config');
+
 module.exports = React.createClass({
 	mixins: [Reflux.ListenerMixin],
 	componentWillMount: function(){
@@ -57,11 +58,6 @@ module.exports = React.createClass({
 			this.setState({
 				loading: !!data.loading
 			});
-		}
-		if(data.selectedPost){
-			_.delay(function(){
-				location.hash = '/post/' + data.selectedPost.slug;
-			}, TRANSITION_OUT_DURATION);
 		}
 	},
 	onRouteChange: function(routeParams){
@@ -126,7 +122,7 @@ module.exports = React.createClass({
 			};
 		return (
 			<div>
-			<ReactCssTransitionGroup component="ul" className={className} style={style} transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={TRANSITION_OUT_DURATION}>
+			<ReactCssTransitionGroup component="ul" className={className} style={style} transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={ListConfig.TRANSITION_OUT_DURATION}>
 				{(selectedPost ? [] : posts).map(function(post, i){
 					return <PostTeaser ref={i} key={post.id} data={post} layout={state.layout && state.layout[i]} cols={state.cols}/>;
 				}, this)}

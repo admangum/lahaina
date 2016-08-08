@@ -58,7 +58,7 @@ module.exports = React.createClass({
 	render: function(){
 		var post = this.post;
 		return this.state.ready && (
-			<ReactCssTransitionGroup component="div" transitionName="post" transitionAppear={true} transitionAppearTimeout={1000} transitionEnterTimeout={1000} transitionLeaveTimeout={500}>
+			<ReactCssTransitionGroup component="div" transitionName="post" transitionAppear={true} transitionAppearTimeout={1000} transitionEnterTimeout={1000} transitionLeaveTimeout={0}>
 				<article key={post.id} className="post">
 					<div className="inner">
 						<PostTags data={post.categories} type="category" />

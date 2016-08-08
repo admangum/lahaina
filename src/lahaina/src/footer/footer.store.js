@@ -12,6 +12,8 @@ module.exports = Reflux.createStore({
 	onRouteChanged: function(list, post){
 		if(list){
 			this.getListBasedContent(list);
+		}else if(post){
+			this.getPostBasedContent(post);
 		}
 	},
 	getListBasedContent: function(list){
@@ -28,6 +30,37 @@ module.exports = Reflux.createStore({
 					return post.id.toString();
 				})
 			}));
+
+		content.push(http.get('/')
+			.query({
+				json: 'get_category_index'
+			}));
+
+		content.push(http.get('/')
+			.query({
+				json: 'get_tag_index'
+			}));
+
+		httpUtils.request.all(content).done(_.bind(this.dispatchListBasedContent, this));
+	},
+	getPostBasedContent: function(post){
+		var content = [],
+			query = {
+				json: 'get_posts',
+				post_type: 'post',
+				ignore_sticky_posts: 0,
+				count: 6,
+				'post__not_in[]': [post.id]
+			};
+
+		if(post.categories.length){
+			query['category__in[]'] = _(post.categories).map(function(cat){
+				return cat.id.toString();
+			});
+		}
+
+		content.push(http.get('/')
+				.query(query));
 
 		content.push(http.get('/')
 			.query({

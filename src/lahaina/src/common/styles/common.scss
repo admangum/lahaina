@@ -30,10 +30,13 @@ a:hover {
 header {
     overflow: hidden;
     height: $header-height;
+    h1{
+        margin-left: 10px;
+    }
 }
 
 #page{
-    margin: 0 $page-margin;
+    margin: 0;
 }
 
 .loading-indicator {

@@ -6,11 +6,9 @@ footer {
     min-height: 500px;
     position: relative;
     z-index: 1;
-    margin-left: -$page-margin;
-    margin-right: -$page-margin;
     font-size: 14px;
-    .inner{
-        padding: 20px;
+    > .inner{
+        padding: 20px 0 20px 20px;
     }
     a{
         color: $light-a;
@@ -22,7 +20,7 @@ footer h3 {
     font-size: 1.4em;
     border-top: solid 1px #4e4e4e;
     padding-top: 10px;
-    margin: 10px 20px 10px 0;
+    margin: 10px 0;
 }
 
 footer .post-teaser p {
@@ -31,6 +29,9 @@ footer .post-teaser p {
 
 footer .section{
     float: left;
+    > .inner{
+        margin-right: 20px;
+    }
 }
 
 footer .featured{

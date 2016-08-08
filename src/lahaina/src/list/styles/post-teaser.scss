@@ -19,6 +19,7 @@
     	overflow: hidden;
     	text-overflow: ellipsis;
     	margin-top: 15px;
+    	margin-left: 10px;
 	}
 }
 
@@ -39,6 +40,9 @@ footer .post-teaser{
 	margin-bottom: 4px;
 }
 
+.post-teaser .post-tag-list {
+    margin-left: 10px;
+}
 
 // appear
 .post-teaser-list.first-layout{
@@ -102,6 +106,7 @@ footer .post-teaser{
 	span{
     	line-height: 1.25em;
     	font-size: 23px;
+    	margin-right: 20%;
 	}
 }
 

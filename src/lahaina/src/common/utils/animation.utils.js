@@ -26,7 +26,7 @@ var EasingFunctions = {
   // acceleration until halfway, then deceleration
   easeInOutQuint: function (t) { return t<0.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t; }
 };
-
+var _ = require('lodash');
 var INTERVAL = 10;
 
 function move(steps, next, done){
@@ -66,7 +66,7 @@ module.exports = {
 
       // default options
       options = options || {};
-      options.duration = options.duration > 10 ? options.duration : 500;
+      options.duration = _.isNumber(options.duration) ? options.duration : 500;
       options.easing = options.easing || 'easeInOutCubic';
 
       stepCount = Math.round(options.duration / INTERVAL);

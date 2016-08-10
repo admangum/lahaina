@@ -116,7 +116,7 @@ module.exports = React.createClass({
 			<div>
 			<ReactCssTransitionGroup component="ul" className={className} style={style} transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={ListConfig.TRANSITION_OUT_DURATION}>
 				{(selectedPost ? [] : posts).map(function(post, i){
-					return <PostTeaser ref={i} key={post.id} data={post} layout={state.layout && state.layout[i]} cols={state.cols}/>;
+					return <PostTeaser ref={i} key={'post-teaser-' + post.id} data={post} layout={state.layout && state.layout[i]} cols={state.cols}/>;
 				}, this)}
 				<LoadingIndicator key="loading-indicator" loading={state.loading} />
 			</ReactCssTransitionGroup>

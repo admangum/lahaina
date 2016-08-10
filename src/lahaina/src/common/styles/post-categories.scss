@@ -3,7 +3,6 @@
 	list-style: none;
 	overflow: hidden;
 	font-size: 13px;
-	max-width: 70%;
 	margin-bottom: 4px;
 }
 
@@ -12,7 +11,7 @@
     padding: 1px 5px;
     color: #FFEDF1;
     font-size: 11px;
-    float: left;
+    display: inline;
     a{
 		color: inherit;
 	}

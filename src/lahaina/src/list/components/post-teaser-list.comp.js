@@ -75,7 +75,7 @@ module.exports = React.createClass({
 	},
 	getStyle: function(layout, posts){
 		var l = utils.getLayoutHeight(layout),
-			h = l.layoutHeight;// || l.previousLayoutHeight;
+			h = l.layoutHeight || l.previousLayoutHeight;
 		try{
 			return /*h ? */{ height: h};// : {};
 		}catch(err){

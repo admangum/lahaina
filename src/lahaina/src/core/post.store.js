@@ -1,18 +1,21 @@
 var _ = require('lodash');
 var http = require('superagent');
 var Reflux = require('reflux');
-var Actions = require('../actions/core.actions');
-var animation = require('../../common/utils/animation.utils');
+var Actions = require('./core.actions');
+var animation = require('../common/utils/animation.utils');
+var DEFAULT_ERROR = 'Ouch, something just went terribly wrong';
 
 module.exports = Reflux.createStore({
 	listenables: [Actions],
 	init: function(){
-		this.postData = window.initialPostData;
+		this.data = {
+			list: window.initialPostData
+		};
 	},
 	onPostSelected: function(post){
 		this.trigger({
-			postData: this.postData,
-			selectedPost: post
+			list: this.data.list,
+			post: post
 		});
 	},
 	onRouteChanged: function(routeParams){
@@ -27,9 +30,9 @@ module.exports = Reflux.createStore({
 			}else if(routeParams.page){
 				this.getPosts(routeParams);
 			}else{
-				this.postData = window.initialPostData;
+				this.data.list = window.initialPostData;
 				this.trigger({
-					postData: this.postData
+					list: this.data.list
 				});
 			}
 		}, this));
@@ -43,10 +46,10 @@ module.exports = Reflux.createStore({
 			})
 			.end(_.bind(function(err, res){
 				if(err){
-					return console.log(err);
+					return this.trigger({error: DEFAULT_ERROR});
 				}
-				this.postData = res.body || {};
-				this.trigger({postData: this.postData});
+				this.data.list = res.body || {};
+				this.trigger({list: this.data.list});
 			}, this));
 	},
 	getPostsByCategory: function(routeParams){
@@ -58,11 +61,11 @@ module.exports = Reflux.createStore({
 			})
 			.end(_.bind(function(err, res){
 				if(err){
-					return console.log(err);
+					return this.trigger({error: DEFAULT_ERROR});
 				}
-				this.postData = res.body || {};
+				this.data.list = res.body || {};
 				this.trigger({
-					postData: this.postData
+					list: this.data.list
 				});
 			}, this));
 	},
@@ -75,14 +78,15 @@ module.exports = Reflux.createStore({
 			})
 			.end(_.bind(function(err, res){
 				if(err){
-					return console.log(err);
+					return this.trigger({error: DEFAULT_ERROR});
 				}
-				this.postData = res.body || {};
-				this.trigger({postData: this.postData});
+				this.data.list = res.body || {};
+				this.trigger({list: this.data.list});
 			}, this));
 	},
 	getPostBySlug: function(slug){
-		var post = _(this.postData).find(function(p){
+		var store = this,
+			post = _(this.postData).find(function(p){
 			return p.slug === slug;
 		});
 		return new Promise(function(resolve, reject){
@@ -99,10 +103,11 @@ module.exports = Reflux.createStore({
 						return reject(err);
 					}
 					resolve(res.body.post);
+					store.trigger({post: res.body.post});
 				});
 		});
 	},
 	getInitialState: function(){
-		return this.postData;
+		return this.data.list;
 	}
 });

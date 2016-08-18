@@ -2,9 +2,8 @@ var React = require('react');
 var Reflux = require('reflux');
 var ReactCssTransitionGroup = require('react-addons-css-transition-group');
 var PostTeaser = require('./post-teaser.comp');
-var Footer = require('../../footer/components/footer.comp');
 var LoadingIndicator = require('../../common/components/loading.comp');
-var PostStore = require('../../core/stores/post.store');
+var PostStore = require('../../core/post.store');
 var Link = require('react-router').Link;
 var utils = require('../../common/utils/layout.utils');
 var _ = require('lodash');
@@ -21,7 +20,7 @@ module.exports = React.createClass({
 		window.removeEventListener('resize', this.onWindowResize);
 	},
 	componentDidUpdate: function(){
-		var posts = this.state.postData.posts,
+		var posts = this.state.list.posts,
 			refs;
 		if(!this.state.layout && posts){
 			// because of transitions, some refs may linger
@@ -41,10 +40,10 @@ module.exports = React.createClass({
 	},
 
 	onPostsChange: function(data){
-		if(data.postData){
+		if(data.list){
 			this.setState({
-				postData: data.postData,
-				selectedPost: data.selectedPost,
+				list: data.list,
+				post: data.post,
 				layout: null,
 				loading: false
 			});
@@ -63,7 +62,8 @@ module.exports = React.createClass({
 	},
 	getInitialState: function(){
 		return {
-			postData: {},
+			list: {},
+			post: null,
 			cols: utils.getColumnInfo(),
 			layout: null,
 			firstLayout: true,
@@ -84,8 +84,8 @@ module.exports = React.createClass({
 	},
 	render: function() {
 		var state = this.state,
-			selectedPost = state.selectedPost,
-			posts = state.postData.posts || [],
+			post = state.post,
+			posts = state.list.posts || [],
 			params = this.props.params,
 			style = this.getStyle(state.layout, posts),
 			className = this.getClassName(state.firstLayout),
@@ -99,29 +99,24 @@ module.exports = React.createClass({
 			getPagination = function(pages){
 				var pagination = [];
 				if(pages > 1){
-					_.times(state.postData.pages, function(index){
+					_.times(state.list.pages, function(index){
 						pagination.push(<li key={index}>
 							<Link to={getPaginationPath(params, index + 1)} activeClassName="active">{index + 1}</Link>
 						</li>);
 					});
 				}
 				return pagination.length ? (<ol className="pagination">{pagination}</ol>) : null;
-			},
-			getFooter = function(){
-				if(posts.length){
-					return (<Footer list={posts} />);
-				}
 			};
+
 		return (
 			<div>
 			<ReactCssTransitionGroup component="ul" className={className} style={style} transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={ListConfig.TRANSITION_OUT_DURATION}>
-				{(selectedPost ? [] : posts).map(function(post, i){
+				{(post ? [] : posts).map(function(post, i){
 					return <PostTeaser ref={i} key={'post-teaser-' + post.id} data={post} layout={state.layout && state.layout[i]} cols={state.cols}/>;
 				}, this)}
 				<LoadingIndicator key="loading-indicator" loading={state.loading} />
 			</ReactCssTransitionGroup>
-			{getPagination(state.postData.pages)}
-			{getFooter()}
+			{getPagination(state.list.pages)}
 			</div>
 		);
 	}

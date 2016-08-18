@@ -1,19 +1,20 @@
 var _ = require('lodash'),
 	httpUtils = require('../common/utils/http.utils'),
 	http = require('superagent'),
-	Reflux = require('reflux'),
-	Actions = require('./footer.actions');
+	Reflux = require('reflux');
+
+var PostStore = require('../core/post.store');
 
 module.exports = Reflux.createStore({
-	listenables: [Actions],
 	init: function(){
 		this.data = {};
+		this.listenTo(PostStore, this.onPostStoreChange);
 	},
-	onRouteChanged: function(list, post){
-		if(list){
-			this.getListBasedContent(list);
-		}else if(post){
-			this.getPostBasedContent(post);
+	onPostStoreChange: function(data){
+		if(data.list){
+			this.getListBasedContent(data.list);
+		}else if(data.post){
+			this.getPostBasedContent(data.post);
 		}
 	},
 	getListBasedContent: function(list){
@@ -26,7 +27,7 @@ module.exports = Reflux.createStore({
 				post_type: 'post',
 				ignore_sticky_posts: 0,
 				count: 4,
-				'post__not_in[]': _.map(list, function(post){
+				'post__not_in[]': _.map(list.posts, function(post){
 					return post.id.toString();
 				})
 			}));

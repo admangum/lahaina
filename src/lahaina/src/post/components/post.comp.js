@@ -1,10 +1,10 @@
+var _ = require('lodash');
 var React = require('react');
-var PostStore = require('../../core/stores/post.store');
+var PostStore = require('../../core/post.store');
 var PostTags = require('../../common/components/post-tags.comp');
 var ReactCssTransitionGroup = require('react-addons-css-transition-group');
-var Footer = require('../../footer/components/footer.comp');
-var _ = require('lodash');
 var layout = require('../../common/utils/layout.utils');
+
 module.exports = React.createClass({
 	componentWillMount: function(){
 		this.onRouteChange(this.props);
@@ -66,7 +66,6 @@ module.exports = React.createClass({
 						<div dangerouslySetInnerHTML={{__html: post.content}}/>
 					</div>
 				</article>
-				<Footer post={post} />
 			</ReactCssTransitionGroup>
 		);
 	}

@@ -36,7 +36,6 @@
 .post.post-appear > .inner,
 .post.post-enter > .inner{
 	width: 0;
-	// opacity: 0.1;
 	.post-title span{
 		color: #232323;
 	}
@@ -50,7 +49,6 @@
 .post.post-appear-active > .inner,
 .post.post-enter-active > .inner{
 	width: 100%;
-	// opacity: 1;
 	transition: width .5s cubic-bezier(.42,.03,.4,1);
 	.post-title span{
 		color: white;

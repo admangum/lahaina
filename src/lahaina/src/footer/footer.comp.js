@@ -1,15 +1,13 @@
 var React = require('react'),
 	Reflux = require('reflux'),
-	Actions = require('../footer.actions'),
-	Store = require('../footer.store'),
-	PostTeaser = require('../../list/components/post-teaser.comp'),
-	Icon = require('../../common/components/icon.comp');
+	FooterStore = require('./footer.store'),
+	PostTeaser = require('../list/components/post-teaser.comp'),
+	Icon = require('../common/components/icon.comp');
 
 module.exports = React.createClass({
 	mixins: [Reflux.ListenerMixin],
 	componentWillMount: function(){
-		this.listenTo(Store, this.onStoreUpdate);
-		Actions.routeChanged(this.props.list, this.props.post);
+		this.listenTo(FooterStore, this.onStoreUpdate);
 	},
 	onStoreUpdate: function(data){
 		this.setState({
@@ -86,7 +84,7 @@ module.exports = React.createClass({
 			 	<ul>
 			 		<li>
 			 			<a href="https://github.com/admangum">
-			 				<Icon glyph={require('../../common/img/github-mark.svg')}/>
+			 				<Icon glyph={require('../common/img/github-mark.svg')}/>
 			 			</a>
 			 		</li>
 			 	</ul>

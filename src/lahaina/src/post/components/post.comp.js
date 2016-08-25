@@ -1,13 +1,16 @@
 var _ = require('lodash');
 var React = require('react');
+var Reflux = require('reflux');
 var PostStore = require('../../core/post.store');
 var PostTags = require('../../common/components/post-tags.comp');
 var ReactCssTransitionGroup = require('react-addons-css-transition-group');
 var layout = require('../../common/utils/layout.utils');
 
 module.exports = React.createClass({
+	mixins: [Reflux.ListenerMixin],
 	componentWillMount: function(){
-		this.onRouteChange(this.props);
+		// this.onRouteChange(this.props);
+		this.listenTo(PostStore, this.onPostStoreChange);
 	},
 	componentWillUnmount: function(){
 		this.updateBodyClassName();
@@ -17,12 +20,13 @@ module.exports = React.createClass({
 			this.onRouteChange(props);
 		}
 	},
-	onRouteChange: function(props){
-		PostStore.getPostBySlug(props.params.id).then(_.bind(function(post){
+	onPostStoreChange: function(data){
+		if(data.post){
+			var post = data.post;
 			this.post = post;
 			this.updateBodyClassName(post);
 			if(this.hasCustomStylesheet(post)){
-				require(['style!css!sass!xyz/' + props.params.id + '.scss'], function(){
+				require(['style!css!sass!xyz/' + post.id + '.scss'], function(){
 					this.setState({
 						ready: true
 					});
@@ -31,8 +35,24 @@ module.exports = React.createClass({
 			this.setState({
 				ready: true
 			});
-		}, this));
+		}
 	},
+	// onRouteChange: function(props){
+	// 	PostStore.getPostBySlug(props.params.slug).then(_.bind(function(post){
+	// 		this.post = post;
+	// 		this.updateBodyClassName(post);
+	// 		if(this.hasCustomStylesheet(post)){
+	// 			require(['style!css!sass!xyz/' + props.params.id + '.scss'], function(){
+	// 				this.setState({
+	// 					ready: true
+	// 				});
+	// 			}.bind(this));
+	// 		}
+	// 		this.setState({
+	// 			ready: true
+	// 		});
+	// 	}, this));
+	// },
 	hasCustomStylesheet: function(post){
 		try{
 			return post.custom_fields.custom_stylesheet[0] === '1';

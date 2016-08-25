@@ -14,7 +14,7 @@ ReactDom.render((
 	<Router history={require('react-router').hashHistory}>
 		<Route path='/' component={App}>
 			<IndexRoute component={PostTeaserList}/>
-			<Route path='/post/:id' component={Post}/>
+			<Route path='/post/:slug' component={Post}/>
 			<Route path='/:page' component={PostTeaserList}/>
 			<Route path='/category/:category(/:page)' component={PostTeaserList}/>
 			<Route path='/tag/:tag(/:page)' component={PostTeaserList}/>

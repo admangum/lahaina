@@ -15,6 +15,8 @@ module.exports = Reflux.createStore({
 			this.getListBasedContent(data.list);
 		}else if(data.post){
 			this.getPostBasedContent(data.post);
+		}else if(data.loading){
+			this.trigger({content: null});
 		}
 	},
 	getListBasedContent: function(list){

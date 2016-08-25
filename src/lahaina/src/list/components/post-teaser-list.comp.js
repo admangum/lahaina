@@ -4,6 +4,7 @@ var ReactCssTransitionGroup = require('react-addons-css-transition-group');
 var PostTeaser = require('./post-teaser.comp');
 var LoadingIndicator = require('../../common/components/loading.comp');
 var PostStore = require('../../core/post.store');
+var Actions = require('../../core/core.actions');
 var Link = require('react-router').Link;
 var utils = require('../../common/utils/layout.utils');
 var _ = require('lodash');
@@ -40,9 +41,9 @@ module.exports = React.createClass({
 	},
 
 	onPostsChange: function(data){
-		if(data.list){
+		if(data.list || data.post){
 			this.setState({
-				list: data.list,
+				list: data.list || {},
 				post: data.post,
 				layout: null,
 				loading: false
@@ -60,6 +61,20 @@ module.exports = React.createClass({
 			layout: null
 		});
 	},
+
+	onTeaserClick: function(post){
+		_.delay(function(){
+			location.hash = '/post/' + post.slug;
+		}, ListConfig.TRANSITION_OUT_DURATION);
+
+		this.setState({
+			list: {},
+			post: post,
+			layout: null,
+			loading: false
+		});
+	},
+
 	getInitialState: function(){
 		return {
 			list: {},
@@ -112,7 +127,7 @@ module.exports = React.createClass({
 			<div>
 			<ReactCssTransitionGroup component="ul" className={className} style={style} transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={ListConfig.TRANSITION_OUT_DURATION}>
 				{(post ? [] : posts).map(function(post, i){
-					return <PostTeaser ref={i} key={'post-teaser-' + post.id} data={post} layout={state.layout && state.layout[i]} cols={state.cols}/>;
+					return <PostTeaser ref={i} key={'post-teaser-' + post.id} data={post} layout={state.layout && state.layout[i]} cols={state.cols} onClick={this.onTeaserClick.bind(this, post)}/>;
 				}, this)}
 				<LoadingIndicator key="loading-indicator" loading={state.loading} />
 			</ReactCssTransitionGroup>

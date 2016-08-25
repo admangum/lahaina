@@ -12,12 +12,6 @@ module.exports = Reflux.createStore({
 			list: window.initialPostData
 		};
 	},
-	onPostSelected: function(post){
-		this.trigger({
-			list: this.data.list,
-			post: post
-		});
-	},
 	onRouteChanged: function(routeParams){
 		animation.scrollToTop().then(_.bind(function(){
 
@@ -29,6 +23,8 @@ module.exports = Reflux.createStore({
 				this.getPostsByTag(routeParams);
 			}else if(routeParams.page){
 				this.getPosts(routeParams);
+			}else if(routeParams.slug){
+				this.getPostBySlug(routeParams.slug);
 			}else{
 				this.data.list = window.initialPostData;
 				this.trigger({

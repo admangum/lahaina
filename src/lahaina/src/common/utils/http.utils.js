@@ -6,16 +6,27 @@ module.exports = {
 			var results = Array(promises.length);
 			return {
 				done: function(cb){
+					function checkDone(){
+						if(_.every(results)){
+							cb.apply(window, results);
+						}
+					}
 					_.each(promises, function(promise, i){
-						promise.end(function(err, res){
+						if(_.isFunction(promise.end)){
+							promise.end(function(err, res){
+								results[i] = {
+									status: err ? 'error' : 'fulfilled',
+									value: err || res
+								};
+								checkDone();
+							});
+						}else{
 							results[i] = {
-								status: err ? 'error' : 'fulfilled',
-								value: err || res
+								status: 'fulfilled',
+								value: promise
 							};
-							if(_.every(results)){
-								cb.apply(window, results);
-							}
-						});
+							checkDone();
+						}
 					});
 				}
 			};

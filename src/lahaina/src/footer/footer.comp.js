@@ -2,7 +2,8 @@ var React = require('react'),
 	Reflux = require('reflux'),
 	FooterStore = require('./footer.store'),
 	PostTeaser = require('../list/components/post-teaser.comp'),
-	Icon = require('../common/components/icon.comp');
+	Icon = require('../common/components/icon.comp'),
+	animation = require('../common/utils/animation.utils');
 
 module.exports = React.createClass({
 	mixins: [Reflux.ListenerMixin],
@@ -20,8 +21,8 @@ module.exports = React.createClass({
 		};
 	},
 	getTeasers: function(posts){
-		return _.map(posts, function(post){
-			return <PostTeaser key={post.id} data={post} context="FOOTER" />
+		return _.map(posts, (post) => {
+			return <PostTeaser key={post.id} data={post} onClick={this.onTeaserClick.bind(this, post)} />
 		});
 	},
 	getTaxonomyItems: function(list, type){
@@ -32,18 +33,31 @@ module.exports = React.createClass({
 	getTagItems: function(categories){
 		return (<li className="tag"></li>);
 	},
-	getFeatured: function(content){
 
+	getFeaturedLabel: function(content){
+		switch(content.type){
+			case 'POST':
+				return 'Related';
+			case 'LIST':
+				return 'Featured';
+			default: 
+				return 'Featured';
+		}
 	},
+
+	onTeaserClick: function(post){
+		animation.scrollToTop().then(function(){
+			location.hash = '/post/' + post.slug;
+		});
+	},
+
 	render: function(){
 		var content = this.state.content;
-
-
 		return (content && <footer id="colophon" role="contentinfo">
 	  <div className="inner">
 	  	<div className="featured section">
 	  		<div className="inner">
-				<h3>{this.props.post ? 'Related' : 'Featured'}</h3>
+				<h3>{this.getFeaturedLabel(content)}</h3>
 				<div className="post-teaser-list">
 					<ul>
 						{this.getTeasers(content.posts[0])}

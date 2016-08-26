@@ -16,7 +16,7 @@ module.exports = Reflux.createStore({
 		}else if(data.post){
 			this.getPostBasedContent(data.post);
 		}else if(data.loading){
-			this.trigger({content: null});
+			// this.trigger({content: null});
 		}
 	},
 	getListBasedContent: function(list){
@@ -43,6 +43,8 @@ module.exports = Reflux.createStore({
 			.query({
 				json: 'get_tag_index'
 			}));
+
+		content.push('LIST');
 
 		httpUtils.request.all(content).done(_.bind(this.dispatchListBasedContent, this));
 	},
@@ -74,10 +76,12 @@ module.exports = Reflux.createStore({
 			.query({
 				json: 'get_tag_index'
 			}));
+		
+		content.push('POST');
 
 		httpUtils.request.all(content).done(_.bind(this.dispatchListBasedContent, this));
 	},
-	dispatchListBasedContent: function(posts, categories, tags){
+	dispatchListBasedContent: function(posts, categories, tags, type){
 		var content = {},
 			half;
 
@@ -94,7 +98,8 @@ module.exports = Reflux.createStore({
 					posts.slice(half)
 				],
 				categories: categories,
-				tags: tags
+				tags: tags,
+				type: type.value
 			}
 		});
 	}

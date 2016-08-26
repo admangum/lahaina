@@ -26,7 +26,7 @@ module.exports = React.createClass({
 			this.post = post;
 			this.updateBodyClassName(post);
 			if(this.hasCustomStylesheet(post)){
-				require(['style!css!sass!xyz/' + post.id + '.scss'], function(){
+				require(['style!css!sass!xyz/' + post.slug + '.scss'], function(){
 					this.setState({
 						ready: true
 					});

@@ -110,8 +110,10 @@ footer .post-teaser{
 	}
 }
 
-
-.pagination {
+.pagination{
+	height: 65px;
+}
+.pagination ol{
     list-style: none;
     overflow: hidden;
     padding: 10px 0;

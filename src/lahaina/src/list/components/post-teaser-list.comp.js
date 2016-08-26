@@ -20,6 +20,18 @@ module.exports = React.createClass({
 	componentWillUnmount: function(){
 		window.removeEventListener('resize', this.onWindowResize);
 	},
+
+	componentWillUpdate: function(params, state){
+		if(this.routeDidChange(params.routeParams, state.routeParams)){
+			// when the route changes, we don't know how many
+			// pages there will be until the new content loads
+			// so assume there's only one and hide the pagination
+			// for now until the content is loaded
+			state.list.pages = 1;
+			state.routeParams = params.routeParams;
+		}
+	},
+
 	componentDidUpdate: function(){
 		var posts = this.state.list.posts,
 			refs;
@@ -49,7 +61,8 @@ module.exports = React.createClass({
 			this.setState({
 				list: data.list || {},
 				layout: null,
-				loading: false
+				loading: false,
+				routeParams: this.props.routeParams
 			});
 		}
 	},
@@ -82,6 +95,13 @@ module.exports = React.createClass({
 			loading: true
 		};
 	},
+
+	routeDidChange: function(routeParamsA, routeParamsB){
+		var paramsA = _.omit(routeParamsA, ['page']),
+			paramsB = _.omit(routeParamsB, ['page']);
+		return !_.isEqual(paramsA, paramsB);
+	},
+
 	getClassName: function(firstLayout){
 		return 'post-teaser-list' + (firstLayout ? ' first-layout' : '');
 	},
@@ -110,7 +130,7 @@ module.exports = React.createClass({
 				</li>);
 			});
 		}
-		return (<ol className="pagination">{pagination}</ol>);
+		return pagination.length > 1 ? (<ol>{pagination}</ol>) : null;
 	},
 	render: function() {
 		var state = this.state,
@@ -127,7 +147,9 @@ module.exports = React.createClass({
 				}, this)}
 				<LoadingIndicator key="loading-indicator" loading={state.loading} />
 			</ReactCssTransitionGroup>
-			{this.getPagination(state.list.pages, params)}
+			<div className="pagination">
+				{this.getPagination(state.list.pages, params)}
+			</div>
 			</div>
 		);
 	}

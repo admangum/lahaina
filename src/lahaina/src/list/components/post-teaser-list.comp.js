@@ -53,7 +53,13 @@ module.exports = React.createClass({
 	},
 
 	onPostsChange: function(data){
-		if(data.loading){
+		if(data.postSelected){
+			this.setState({
+				list: {},
+				layout: null,
+				loading: false
+			});
+		}else if(data.loading){
 			this.setState({
 				loading: !!data.loading
 			});
@@ -79,11 +85,9 @@ module.exports = React.createClass({
 			location.hash = '/post/' + post.slug;
 		}, ListConfig.TRANSITION_OUT_DURATION);
 
-		this.setState({
-			list: {},
-			layout: null,
-			loading: false
-		});
+		Actions.postSelected();
+
+		
 	},
 
 	getInitialState: function(){

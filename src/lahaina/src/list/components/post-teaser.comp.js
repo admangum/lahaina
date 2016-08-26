@@ -6,9 +6,12 @@ var imgUtils = require('../../common/utils/img.utils');
 var config = require('../../common/config/config');
 
 module.exports = React.createClass({
-	onClick: function(parentCallback){
-		var post = this.props.data;
+	onClick: function(e){
+		var post = this.props.data,
+			parentCallback = this.props.onClick;
+		
 		this.refs[post.id].classList.add('selected');
+		
 		if(parentCallback){
 			parentCallback(post);
 		}
@@ -37,7 +40,7 @@ module.exports = React.createClass({
 			}
 		}
 
-		return (<li ref={data.id} className={'post-teaser'} style={style} onClick={this.onClick.bind(this, this.props.onClick)}>
+		return (<li ref={data.id} className={'post-teaser'} style={style} onClick={this.onClick}>
 					{imgUtils.getTeaserImage(data, imgUtils.getTeaserImageConstraints(width))}
 					<PostTags data={data.categories} type="category" />
 					<h2 className="post-title" style={{width: width}}>

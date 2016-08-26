@@ -12,6 +12,11 @@ module.exports = Reflux.createStore({
 			list: window.initialPostData
 		};
 	},
+	onPostSelected: function(){
+		this.trigger({
+			postSelected: true
+		});
+	},
 	onRouteChanged: function(routeParams){
 		animation.scrollToTop().then(_.bind(function(){
 

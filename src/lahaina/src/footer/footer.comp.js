@@ -20,12 +20,14 @@ module.exports = React.createClass({
 			content: null
 		};
 	},
-	getTeasers: function(posts){
+	getTeasers: function(content, grouping){
+		var posts = content ? content.posts[grouping] : [];
 		return _.map(posts, (post) => {
 			return <PostTeaser key={post.id} data={post} onClick={this.onTeaserClick.bind(this, post)} />
 		});
 	},
 	getTaxonomyItems: function(list, type){
+		list = list || [];
 		return list.map(function(item){
 			return (<li key={type + '-' + item.id} className={type + '-' + item.slug + ' post-' + type}>{item.title}</li>);
 		});
@@ -35,6 +37,7 @@ module.exports = React.createClass({
 	},
 
 	getFeaturedLabel: function(content){
+		content = content || {};
 		switch(content.type){
 			case 'POST':
 				return 'Related';
@@ -53,19 +56,19 @@ module.exports = React.createClass({
 
 	render: function(){
 		var content = this.state.content;
-		return (content && <footer id="colophon" role="contentinfo">
+		return (<footer id="colophon" role="contentinfo" style={content ? null : {visibility:'hidden'}}>
 	  <div className="inner">
 	  	<div className="featured section">
 	  		<div className="inner">
 				<h3>{this.getFeaturedLabel(content)}</h3>
 				<div className="post-teaser-list">
 					<ul>
-						{this.getTeasers(content.posts[0])}
+						{this.getTeasers(content, 0)}
 					</ul>
 				</div>
 				<div className="post-teaser-list">
 					<ul>
-						{this.getTeasers(content.posts[1])}
+						{this.getTeasers(content, 1)}
 					</ul>
 				</div>
 			</div>
@@ -75,13 +78,13 @@ module.exports = React.createClass({
 			 	<div className="categories">
 				 	<h3>Categories</h3>
 				 	<ul className="category-list post-taxonomy-list">
-				 		{this.getTaxonomyItems(content.categories, 'category')}
+				 		{this.getTaxonomyItems(content && content.categories, 'category')}
 				 	</ul>
 			 	</div>
 			 	<div className="tags">
 				 	<h3>Tags</h3>
 				 	<ul className="tag-list post-taxonomy-list">
-				 		{this.getTaxonomyItems(content.tags, 'tag')}
+				 		{this.getTaxonomyItems(content && content.tags, 'tag')}
 				 	</ul>
 			 	</div>
 		 	</div>

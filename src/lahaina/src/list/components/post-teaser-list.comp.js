@@ -86,8 +86,6 @@ module.exports = React.createClass({
 		}, ListConfig.TRANSITION_OUT_DURATION);
 
 		Actions.postSelected();
-
-		
 	},
 
 	getInitialState: function(){

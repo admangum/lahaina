@@ -41,16 +41,15 @@ module.exports = React.createClass({
 	},
 
 	onPostsChange: function(data){
-		if(data.list || data.post){
+		if(data.loading){
 			this.setState({
-				list: data.list || {},
-				post: data.post,
-				layout: null,
-				loading: false
+				loading: !!data.loading
 			});
 		}else{
 			this.setState({
-				loading: !!data.loading
+				list: data.list || {},
+				layout: null,
+				loading: false
 			});
 		}
 	},
@@ -69,7 +68,6 @@ module.exports = React.createClass({
 
 		this.setState({
 			list: {},
-			post: post,
 			layout: null,
 			loading: false
 		});
@@ -78,7 +76,6 @@ module.exports = React.createClass({
 	getInitialState: function(){
 		return {
 			list: {},
-			post: null,
 			cols: utils.getColumnInfo(),
 			layout: null,
 			firstLayout: true,
@@ -97,41 +94,40 @@ module.exports = React.createClass({
 			return {};
 		}
 	},
+	getPaginationPath: function(params, index){
+		var path = [];
+		path.push(params.category ? 'category' : params.tag ? 'tag' : '');
+		path.push(params.category || params.tag || '');
+		path.push(index);
+		return _.compact(path).join('/');
+	},
+	getPagination: function(pages, params){
+		var pagination = [];
+		if(pages > 1){
+			_.times(pages, (index) => {
+				pagination.push(<li key={index}>
+					<Link to={this.getPaginationPath(params, index + 1)} activeClassName="active">{index + 1}</Link>
+				</li>);
+			});
+		}
+		return (<ol className="pagination">{pagination}</ol>);
+	},
 	render: function() {
 		var state = this.state,
-			post = state.post,
 			posts = state.list.posts || [],
 			params = this.props.params,
 			style = this.getStyle(state.layout, posts),
-			className = this.getClassName(state.firstLayout),
-			getPaginationPath = function(params, index){
-				var path = [];
-				path.push(params.category ? 'category' : params.tag ? 'tag' : '');
-				path.push(params.category || params.tag || '');
-				path.push(index);
-				return _.compact(path).join('/');
-			},
-			getPagination = function(pages){
-				var pagination = [];
-				if(pages > 1){
-					_.times(state.list.pages, function(index){
-						pagination.push(<li key={index}>
-							<Link to={getPaginationPath(params, index + 1)} activeClassName="active">{index + 1}</Link>
-						</li>);
-					});
-				}
-				return pagination.length ? (<ol className="pagination">{pagination}</ol>) : null;
-			};
+			className = this.getClassName(state.firstLayout);
 
 		return (
 			<div>
 			<ReactCssTransitionGroup component="ul" className={className} style={style} transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={ListConfig.TRANSITION_OUT_DURATION}>
-				{(post ? [] : posts).map(function(post, i){
+				{posts.map(function(post, i){
 					return <PostTeaser ref={i} key={'post-teaser-' + post.id} data={post} layout={state.layout && state.layout[i]} cols={state.cols} onClick={this.onTeaserClick.bind(this, post)}/>;
 				}, this)}
 				<LoadingIndicator key="loading-indicator" loading={state.loading} />
 			</ReactCssTransitionGroup>
-			{getPagination(state.list.pages)}
+			{this.getPagination(state.list.pages, params)}
 			</div>
 		);
 	}

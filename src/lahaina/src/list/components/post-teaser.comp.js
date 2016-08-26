@@ -4,25 +4,11 @@ var PostTags = require('../../common/components/post-tags.comp');
 var _ = require('lodash');
 var imgUtils = require('../../common/utils/img.utils');
 var config = require('../../common/config/config');
-var animation = require('../../common/utils/animation.utils');
 
 module.exports = React.createClass({
 	onClick: function(parentCallback){
 		var post = this.props.data;
 		this.refs[post.id].classList.add('selected');
-		// Actions.postSelected(post);
-
-		if(this.props.context === 'FOOTER'){
-			animation.scrollToTop().then(function(){
-				location.hash = '/post/' + post.slug;
-			});
-		}else{
-
-			// _.delay(function(){
-			// 	location.hash = '/post/' + post.slug;
-			// }, ListConfig.TRANSITION_OUT_DURATION);
-		}
-
 		if(parentCallback){
 			parentCallback(post);
 		}

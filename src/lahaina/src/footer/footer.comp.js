@@ -7,7 +7,9 @@ var React = require('react'),
 	Icon = require('../common/components/icon.comp'),
 	FirstChildComp = require('../common/components/first-child.comp'),
 	animation = require('../common/utils/animation.utils');
-var ListConfig = require('../list/config/list.config');
+
+var PostTags = require('../common/components/post-tags.comp');
+
 module.exports = React.createClass({
 	mixins: [Reflux.ListenerMixin],
 	componentWillMount: function(){
@@ -88,15 +90,11 @@ module.exports = React.createClass({
 		 	<div className="inner">
 			 	<div className="categories">
 				 	<h3>Categories</h3>
-				 	<ul className="category-list post-taxonomy-list">
-				 		{this.getTaxonomyItems(content && content.categories, 'category')}
-				 	</ul>
+					 <PostTags data={content && content.categories} type="category" />
 			 	</div>
 			 	<div className="tags">
 				 	<h3>Tags</h3>
-				 	<ul className="tag-list post-taxonomy-list">
-				 		{this.getTaxonomyItems(content && content.tags, 'tag')}
-				 	</ul>
+				 	<PostTags data={content && content.tags} type="tag" />
 			 	</div>
 		 	</div>
 		 </div>

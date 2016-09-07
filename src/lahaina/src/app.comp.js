@@ -3,7 +3,6 @@ var Reflux = require('reflux');
 var IndexLink = require('react-router').IndexLink;
 var CoreActions = require('./core/core.actions');
 var PostStore = require('./core/post.store');
-var Footer = require('./footer/footer.comp');
 
 module.exports = React.createClass({
 	mixins: [Reflux.ListenerMixin],
@@ -18,9 +17,6 @@ module.exports = React.createClass({
 	onRouteChange: function(params){
 		CoreActions.routeChanged(params);
 	},
-	getFooter: function(data){
-		return (<Footer />);
-	},
 	render: function(){
 		return (
 			<div>
@@ -28,7 +24,6 @@ module.exports = React.createClass({
 					<h1><IndexLink to="1">*</IndexLink></h1>
 				</header>
 				{this.props.children}
-				{this.getFooter()}
 			</div>
 		);
 	}

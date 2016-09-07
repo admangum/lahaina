@@ -9,7 +9,7 @@ var Link = require('react-router').Link;
 var utils = require('../../common/utils/layout.utils');
 var _ = require('lodash');
 var ListConfig = require('../config/list.config');
-
+var Footer = require('../../footer/footer.comp');
 module.exports = React.createClass({
 	mixins: [Reflux.ListenerMixin],
 	componentWillMount: function(){
@@ -152,6 +152,7 @@ module.exports = React.createClass({
 			<div className="pagination">
 				{this.getPagination(state.list.pages, params)}
 			</div>
+			<Footer />
 			</div>
 		);
 	}

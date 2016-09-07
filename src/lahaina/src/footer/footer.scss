@@ -76,6 +76,10 @@ footer .post-teaser-list > ul{
     margin: 0 $page-margin 0 0;
 }
 
+footer .post-category{
+    float: left;
+}
+
 .site-info{
     clear: both;
     font-size: 12px;
@@ -98,4 +102,16 @@ footer.footer-leave{
 footer.footer-leave-active{
     transform: translateY(100%);
     transition: transform 500ms cubic-bezier(.63,-0.15,.75,.79);
+}
+
+@media all and (max-width: 800px){
+    footer .post-teaser-list{
+        width: 100%;
+    }
+}
+
+@media all and (max-width: 500px){
+    footer .section{
+        width: 100%;
+    }
 }

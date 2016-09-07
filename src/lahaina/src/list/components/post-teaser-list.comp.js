@@ -53,7 +53,7 @@ module.exports = React.createClass({
 	},
 
 	onPostsChange: function(data){
-		if(data.postSelected){
+		if(data.transition){
 			this.setState({
 				list: {},
 				layout: null,

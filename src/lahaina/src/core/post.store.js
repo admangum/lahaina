@@ -14,7 +14,7 @@ module.exports = Reflux.createStore({
 	},
 	onPostSelected: function(){
 		this.trigger({
-			postSelected: true
+			transition: true
 		});
 	},
 	onRouteChanged: function(routeParams){

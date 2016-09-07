@@ -1,10 +1,13 @@
 var React = require('react'),
 	Reflux = require('reflux'),
+	ReactCssTransitionGroup = require('react-addons-css-transition-group'),
 	FooterStore = require('./footer.store'),
+	Actions = require('../core/core.actions'),
 	PostTeaser = require('../list/components/post-teaser.comp'),
 	Icon = require('../common/components/icon.comp'),
+	FirstChildComp = require('../common/components/first-child.comp'),
 	animation = require('../common/utils/animation.utils');
-
+var ListConfig = require('../list/config/list.config');
 module.exports = React.createClass({
 	mixins: [Reflux.ListenerMixin],
 	componentWillMount: function(){
@@ -49,14 +52,22 @@ module.exports = React.createClass({
 	},
 
 	onTeaserClick: function(post){
-		animation.scrollToTop().then(function(){
-			location.hash = '/post/' + post.slug;
-		});
+		// animation.scrollToTop().then(function(){
+		// 	location.hash = '/post/' + post.slug;
+		// });
+		_.delay(function(){
+			// animation.scrollToTop().then(function(){
+				location.hash = '/post/' + post.slug;
+			// });
+		}, 400);
+
+		Actions.postSelected();
 	},
 
-	render: function(){
-		var content = this.state.content;
-		return (<footer id="colophon" role="contentinfo" style={content ? null : {visibility:'hidden'}}>
+	getFooter: function(content){
+		if(content){
+			return (
+				<footer ref="footer" id="colophon" role="contentInfo">
 	  <div className="inner">
 	  	<div className="featured section">
 	  		<div className="inner">
@@ -111,6 +122,16 @@ module.exports = React.createClass({
 			<a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">Proudly powered by WordPress</a>
 		</div>
 	  </div>
-	</footer>);
+	  </footer>);
+		}
+		return null;
+	},
+	render: function(){
+		var content = this.state.content;
+		return (
+			<ReactCssTransitionGroup component={FirstChildComp} transitionName="footer" transitionAppear={true} transitionAppearTimeout={1200} transitionEnterTimeout={1200} transitionLeaveTimeout={800}>
+			{this.getFooter(content)}
+			</ReactCssTransitionGroup>
+		);
 	}
 })

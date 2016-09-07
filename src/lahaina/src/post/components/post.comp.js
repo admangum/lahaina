@@ -15,11 +15,11 @@ module.exports = React.createClass({
 	componentWillUnmount: function(){
 		this.updateBodyClassName();
 	},
-	componentWillReceiveProps: function(props){
-		if(props.location.action === 'POP' || props.location.pathname === '/'){
-			this.onRouteChange(props);
-		}
-	},
+	// componentWillReceiveProps: function(props){
+	// 	if(props.location.action === 'POP' || props.location.pathname === '/'){
+	// 		this.onRouteChange(props);
+	// 	}
+	// },
 	onPostStoreChange: function(data){
 		if(data.post){
 			var post = data.post;

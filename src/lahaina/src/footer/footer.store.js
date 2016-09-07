@@ -15,7 +15,7 @@ module.exports = Reflux.createStore({
 			this.getListBasedContent(data.list);
 		}else if(data.post){
 			this.getPostBasedContent(data.post);
-		}else if(data.postSelected){
+		}else if(data.transition){
 			this.trigger({content: null});
 		}
 	},

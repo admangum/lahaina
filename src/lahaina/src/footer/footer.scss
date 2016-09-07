@@ -80,3 +80,22 @@ footer .post-teaser-list > ul{
     clear: both;
     font-size: 12px;
 }
+
+
+footer.footer-appear,
+footer.footer-enter{
+    transform: translateY(100%);
+}
+footer.footer-appear-active,
+footer.footer-enter-active{
+    transform: translateY(0);
+    transition: transform 600ms cubic-bezier(.39,.33,.36,1.22) 400ms;
+}
+
+footer.footer-leave{
+    transform: translateY(0);
+}
+footer.footer-leave-active{
+    transform: translateY(100%);
+    transition: transform 500ms cubic-bezier(.63,-0.15,.75,.79);
+}

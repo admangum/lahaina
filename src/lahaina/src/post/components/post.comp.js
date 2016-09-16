@@ -6,6 +6,8 @@ var PostTags = require('../../common/components/post-tags.comp');
 var ReactCssTransitionGroup = require('react-addons-css-transition-group');
 var layout = require('../../common/utils/layout.utils');
 var Footer = require('../../footer/footer.comp');
+var EmbeddedContent = require('./embedded-content.comp');
+
 module.exports = React.createClass({
 	mixins: [Reflux.ListenerMixin],
 	componentWillMount: function(){
@@ -59,8 +61,11 @@ module.exports = React.createClass({
 			<ReactCssTransitionGroup component="div" transitionName="post" transitionAppear={true} transitionAppearTimeout={1000} transitionEnterTimeout={1000} transitionLeaveTimeout={10}>
 				<article key={'post-' + post.id} className="post">
 					<div className="inner">
-						<PostTags data={post.categories} type="category" />
-						<h1 style={this.getTitleStyle()} className="post-title"><span dangerouslySetInnerHTML={{__html: post.title}}></span></h1>
+						{<EmbeddedContent post={post} />}
+						<header className="post-header">
+							<PostTags data={post.categories} type="category" />
+							<h1 style={this.getTitleStyle()} className="post-title"><span dangerouslySetInnerHTML={{__html: post.title}}></span></h1>
+						</header>
 						<div dangerouslySetInnerHTML={{__html: post.content}}/>
 					</div>
 				</article>

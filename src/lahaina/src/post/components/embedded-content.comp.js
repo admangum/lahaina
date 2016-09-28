@@ -19,23 +19,43 @@ module.exports = React.createClass({
 		return embeddedDocument && embeddedDocument.getElementsByTagName('body')[0];
 	},
 	getEmbeddedContentBodyStyles: function(){
-		var post = this.props.post,
-            styleDef = post.custom_fields.embedded_content_body_styles;
-			styleArr = styleDef && styleDef[0] && styleDef[0].split(';');
-		return _.reduce(styleArr, function(memo, style){
-			style = (style.replace(/\s/g, '') || '').split(':');
-			if(style.length === 2){
-				// style[0] == style name, style[1] == style value
-				memo[style[0]] = style[1];
-			}
-			return memo;
-		}, {});
+        return this.getEmbeddedContentPadding();
 	},
+    getEmbeddedContentPadding: function(){
+        try{
+            return this.props.post.custom_fields.embedded_content_padding[0] === '1' ? {'padding-top': '200px'} : null;
+        }catch(err){
+            return null;
+        }
+    },
+    getEmbeddedContentUrl: function(){
+        try{
+            return this.props.post.custom_fields.embedded_content_url[0];
+        }catch(err){
+            return '';
+        }
+    },
+    getEmbeddedContentAspectRatio: function(){
+        var ratio;
+        try{
+            ratio = this.props.post.custom_fields.embedded_content_aspect_ratio[0].split(':');
+            ratio = (parseInt(ratio[1], 10) / parseInt(ratio[0], 10)) * 100;
+            return isNaN(ratio) ? '' : ratio.toFixed(4);
+        }catch(err){
+            return '';
+        }
+    },
     render: function(){
-        return (
-            <div className="embedded-content-wrapper">
-                <iframe id="embedded-content" src="/projects/test" allowFullScreen="0" frameBorder="0" onLoad={this.onLoad}/>
-            </div>
-        );
+        var url = this.getEmbeddedContentUrl(),
+            aspectRatio = this.getEmbeddedContentAspectRatio();
+        if(url && aspectRatio){
+            return (
+                <div className="embedded-content-wrapper" style={{'paddingBottom': aspectRatio + '%'}}>
+                    <iframe id="embedded-content" src={url} allowFullScreen="0" frameBorder="0" onLoad={this.onLoad}/>
+                </div>
+            );
+        }else{
+            return null;
+        }
     }
 });

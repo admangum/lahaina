@@ -61,12 +61,12 @@ module.exports = React.createClass({
 			<ReactCssTransitionGroup component="div" transitionName="post" transitionAppear={true} transitionAppearTimeout={1000} transitionEnterTimeout={1000} transitionLeaveTimeout={10}>
 				<article key={'post-' + post.id} className="post">
 					<div className="inner">
-						{<EmbeddedContent post={post} />}
 						<header className="post-header">
 							<PostTags data={post.categories} type="category" />
 							<h1 style={this.getTitleStyle()} className="post-title"><span dangerouslySetInnerHTML={{__html: post.title}}></span></h1>
 						</header>
-						<div dangerouslySetInnerHTML={{__html: post.content}}/>
+						{<EmbeddedContent post={post} />}
+						<div className="post-body" dangerouslySetInnerHTML={{__html: post.content}}/>
 					</div>
 				</article>
 				<Footer />

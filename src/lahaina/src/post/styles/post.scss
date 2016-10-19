@@ -4,16 +4,17 @@
 }
 .post > .inner{
 	overflow: hidden;
+	position: relative;
 }
 
 .post-header{
 	position: absolute;
-	top: 55px;
+	top: 40px;
 	z-index: 1000; // move above content
 }
 
 .post-body{
-	padding: 200px 20px 0;
+	padding: 180px 20px 0;
 }
 
 .embedded-content-wrapper + .post-body {
@@ -72,7 +73,7 @@
 	.post-title span{
 		color: #232323;
 	}
-	.post-title + div{
+	.post-body{
 		opacity: 0.01;
 	}
 	.post-category a{
@@ -87,7 +88,7 @@
 		color: white;
 		transition: color .5s ease-out .5s;
 	}
-	.post-title + div{
+	.post-body{
 		opacity: 1;
 		transition: opacity .5s ease-out .6s;
 	}

@@ -11,6 +11,7 @@ var _ = require('lodash');
 var ListConfig = require('../config/list.config');
 var Footer = require('../../footer/footer.comp');
 var IndexLink = require('react-router').IndexLink;
+var Mark = require('../../common/components/mark.comp');
 
 module.exports = React.createClass({
 	mixins: [Reflux.ListenerMixin],
@@ -146,7 +147,11 @@ module.exports = React.createClass({
 		return (
 			<div>
 				<header className="site-header">
-					<h1><IndexLink to="1">*</IndexLink></h1>
+					<h1>
+						<IndexLink to="1" style={{display: 'block'}}>
+							<Mark />
+						</IndexLink>
+					</h1>
 				</header>
 				<ReactCssTransitionGroup component="ul" className={className} style={style} transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={ListConfig.TRANSITION_OUT_DURATION}>
 					{posts.map(function(post, i){

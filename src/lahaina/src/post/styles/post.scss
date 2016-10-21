@@ -9,12 +9,12 @@
 
 .post-header{
 	position: absolute;
-	top: 40px;
+	top: 30px;
 	z-index: 1000; // move above content
 }
 
 .post-body{
-	padding: 180px 20px 0;
+	padding: 160px 20px 0;
 }
 
 .embedded-content-wrapper + .post-body {

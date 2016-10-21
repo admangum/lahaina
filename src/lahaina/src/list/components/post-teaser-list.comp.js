@@ -146,13 +146,6 @@ module.exports = React.createClass({
 
 		return (
 			<div>
-				<header className="site-header">
-					<h1>
-						<IndexLink to="1" style={{display: 'block'}}>
-							<Mark />
-						</IndexLink>
-					</h1>
-				</header>
 				<ReactCssTransitionGroup component="ul" className={className} style={style} transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={ListConfig.TRANSITION_OUT_DURATION}>
 					{posts.map(function(post, i){
 						return <PostTeaser ref={i} key={'post-teaser-' + post.id} data={post} layout={state.layout && state.layout[i]} cols={state.cols} onClick={this.onTeaserClick.bind(this, post)}/>;

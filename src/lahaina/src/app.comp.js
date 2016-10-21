@@ -2,6 +2,8 @@ var React = require('react');
 var Reflux = require('reflux');
 var CoreActions = require('./core/core.actions');
 var PostStore = require('./core/post.store');
+var IndexLink = require('react-router').IndexLink;
+var Mark = require('./common/components/mark.comp');
 
 module.exports = React.createClass({
 	mixins: [Reflux.ListenerMixin],
@@ -19,6 +21,13 @@ module.exports = React.createClass({
 	render: function(){
 		return (
 			<div>
+				<header className="site-header">
+					<h1>
+						<IndexLink to="1" style={{display: 'block'}}>
+							<Mark location={this.props.location}/>
+						</IndexLink>
+					</h1>
+				</header>
 				{this.props.children}
 			</div>
 		);

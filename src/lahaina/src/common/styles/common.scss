@@ -33,7 +33,8 @@ a:hover {
     height: $header-height;
     margin-top: 15px;
     h1{
-        margin-left: 10px;
+        margin-left: 20px;
+        margin-top: 10px;
     }
 }
 
@@ -41,24 +42,33 @@ a:hover {
     margin: 0;
 }
 
+header h1 a {
+    display: block;
+}
+
+header h1 a,
 header h1 svg {
-    width: 100px;
+    width: 75px;
     height: 75px;
-    margin: 10px;
 }
 
-h1 svg polygon {
-    transition: transform 500ms cubic-bezier(0.645, 0.045, 0.355, 1) 100ms, opacity 300ms;
-    transform-origin: center;
+h1 svg {
+    line.a1, line.a2, line.m {
+        transition: transform 500ms cubic-bezier(0.645, 0.045, 0.355, 1) 100ms, opacity 300ms;
+        transform-origin: center;
+    }
 }
 
-h1 svg.back polygon:nth-child(2) {
-    transform: rotateZ(-90deg);
-}
-
-h1 svg.back polygon:nth-child(1) {
-    opacity: 0;
-    transform: rotateZ(45deg);
+h1 svg.back{
+    line.a1 {
+        transform: translate(-3px, -5px) rotateZ(-90deg);
+    }
+    line.a2 {
+        transform: translate(10px, -5px) rotateZ(-150deg);
+    }
+    line.m {
+        transform: translate(-16px, 9px) rotateZ(155deg);
+    }
 }
 
 .loading-indicator {

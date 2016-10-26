@@ -23,7 +23,7 @@ module.exports = React.createClass({
 			<div>
 				<header className="site-header">
 					<h1>
-						<IndexLink to="1" style={{display: 'block'}}>
+						<IndexLink to="1">
 							<Mark location={this.props.location}/>
 						</IndexLink>
 					</h1>

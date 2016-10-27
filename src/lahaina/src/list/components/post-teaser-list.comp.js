@@ -106,7 +106,6 @@ module.exports = React.createClass({
 			paramsB = _.omit(routeParamsB, ['page']);
 		return !_.isEqual(paramsA, paramsB);
 	},
-
 	getClassName: function(firstLayout){
 		return 'post-teaser-list' + (firstLayout ? ' first-layout' : '');
 	},
@@ -127,15 +126,14 @@ module.exports = React.createClass({
 		return _.compact(path).join('/');
 	},
 	getPagination: function(pages, params){
-		var pagination = [];
-		if(pages > 1){
-			_.times(pages, (index) => {
-				pagination.push(<li key={index}>
-					<Link to={this.getPaginationPath(params, index + 1)} activeClassName="active">{index + 1}</Link>
-				</li>);
-			});
-		}
-		return pagination.length > 1 ? (<ol>{pagination}</ol>) : null;
+		pages = _.times(pages, Number);
+		return pages.length > 1 ? (<ol>{
+			pages.map(_.bind(function(index) {
+				return (<li key={index}>
+							<Link to={this.getPaginationPath(params, index + 1)} activeClassName="active">{index + 1}</Link>
+						</li>);
+			}, this))
+		}</ol>) : null;
 	},
 	render: function() {
 		var state = this.state,

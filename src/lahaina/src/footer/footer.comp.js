@@ -27,9 +27,9 @@ module.exports = React.createClass({
 	},
 	getTeasers: function(content, grouping){
 		var posts = content ? content.posts[grouping] : [];
-		return _.map(posts, (post) => {
+		return _.map(posts, _(function(post) {
 			return <PostTeaser key={post.id} data={post} onClick={this.onTeaserClick.bind(this, post)} />
-		});
+		}, this));
 	},
 	getTaxonomyItems: function(list, type){
 		list = list || [];
@@ -54,13 +54,8 @@ module.exports = React.createClass({
 	},
 
 	onTeaserClick: function(post){
-		// animation.scrollToTop().then(function(){
-		// 	location.hash = '/post/' + post.slug;
-		// });
 		_.delay(function(){
-			// animation.scrollToTop().then(function(){
-				location.hash = '/post/' + post.slug;
-			// });
+			location.hash = '/post/' + post.slug;
 		}, 400);
 
 		Actions.postSelected();

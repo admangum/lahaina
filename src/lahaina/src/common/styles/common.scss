@@ -53,21 +53,26 @@ header h1 svg {
 }
 
 h1 svg {
-    line.a1, line.a2, line.m {
-        transition: transform 500ms cubic-bezier(0.645, 0.045, 0.355, 1) 100ms, opacity 300ms;
-        transform-origin: center;
+    g.mark, line.a1, line.a2, line.m {
+        transition: transform 500ms cubic-bezier(0.645, 0.045, 0.355, 1) 100ms, opacity 300ms 200ms;
+        -moz-transform-origin: 30px 30px;
+        transform-origin: 30px 30px;
     }
 }
 
 h1 svg.back{
+    g.mark{
+        transform: translate(0, -2px);
+    }
     line.a1 {
         transform: translate(-3px, -5px) rotateZ(-90deg);
     }
     line.a2 {
-        transform: translate(10px, -5px) rotateZ(-150deg);
+        transform: translate(-15px, -12px) rotateZ(-150deg);
+        opacity: 0;
     }
     line.m {
-        transform: translate(-16px, 9px) rotateZ(155deg);
+        transform: translate(6px, 3px) rotateZ(155deg);
     }
 }
 

@@ -27,13 +27,13 @@ module.exports = React.createClass({
 	},
 	getTeasers: function(content, grouping){
 		var posts = content ? content.posts[grouping] : [];
-		return _.map(posts, _(function(post) {
+		return _.map(posts, _.bind(function(post) {
 			return <PostTeaser key={post.id} data={post} onClick={this.onTeaserClick.bind(this, post)} />
 		}, this));
 	},
 	getTaxonomyItems: function(list, type){
 		list = list || [];
-		return list.map(function(item){
+		return _.map(list, function(item){
 			return (<li key={type + '-' + item.id} className={type + '-' + item.slug + ' post-' + type}>{item.title}</li>);
 		});
 	},

@@ -6,11 +6,9 @@
 	padding: 0;
 	min-height: 300px;
 	opacity: 1;
-	transition: opacity .5s ease-out .3s, height .4s ease-in-out;
+	transition: opacity .5s ease-out .3s, height .7s ease-in-out;
 }
-.post-teaser-list.first-layout{
-	transition: opacity .5s ease-out;
-}
+
 .post-teaser{
 	position: absolute;
 	cursor: pointer;
@@ -46,11 +44,9 @@ footer .post-teaser{
 }
 
 // appear
-.post-teaser-list.first-layout{
-	opacity: 0.01;
-}
 .post-teaser.post-teaser-appear{
 	opacity: 0.01;
+	transition: none;
 }
 .post-teaser.post-teaser-appear-active{
 	opacity: 1;
@@ -60,6 +56,7 @@ footer .post-teaser{
 // leave
 .post-teaser.post-teaser-leave{
 	opacity: 1;
+	transition: none;
 }
 .post-teaser.post-teaser-leave-active{
 	opacity: 0;
@@ -87,6 +84,7 @@ footer .post-teaser{
 // enter
 .post-teaser.post-teaser-enter{
 	opacity: 0.01;
+	transition: none;
 }
 .post-teaser.post-teaser-enter-active{
 	opacity: 1;
@@ -98,52 +96,11 @@ footer .post-teaser{
 	transition: transform 1s ease-out;
 }
 
-.post-teaser-list.first-layout .post-teaser{
-	transition: none;
-}
-
 .post-teaser .post-title {
 	width: 95%;
 	span{
     	line-height: 1.25em;
     	font-size: 23px;
     	margin-right: 20%;
-	}
-}
-
-.pagination{
-	height: 65px;
-}
-.pagination ol{
-    list-style: none;
-    overflow: hidden;
-    padding: 10px 0;
-    width: 50%;
-    margin: 0 0 20px;
-    text-align: center;
-    border-top: solid $dark 1px;
-    width: 100%;
-    background: white;
-}
-
-.pagination li {
-	display: inline-block;
-	a{
-		margin-top: 1px;
-	    display: block;
-	    font-size: 13px;
-	    color: #424242;
-	    border-radius: 10px;
-	    width: 19px;
-	    height: 19px;
-	    line-height: 19px;
-	    margin: 0 4px;
-	}
-	a.active{
-		border: solid 1px $dark;
-		background-color: $dark;
-		color: white;
-		margin: 0 2px;
-		-webkit-font-smoothing: antialiased;
 	}
 }

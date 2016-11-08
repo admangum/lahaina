@@ -1,0 +1,49 @@
+@import 'src/common/styles/variables';
+
+.pagination{
+	height: 65px;
+}
+.pagination.hidden{
+    visibility: hidden;
+}
+.pagination ol{
+    list-style: none;
+    overflow: hidden;
+    padding: 10px 0;
+    width: 50%;
+    margin: 0 0 20px;
+    text-align: center;
+    border-top: solid $dark 1px;
+    width: 100%;
+    background: white;
+}
+
+.pagination li {
+	display: inline-block;
+	a{
+		margin-top: 1px;
+	    display: block;
+	    font-size: 13px;
+	    color: #424242;
+	    border-radius: 10px;
+	    width: 19px;
+	    height: 19px;
+	    line-height: 19px;
+	    margin: 0 4px;
+	}
+	a.active{
+		border: solid 1px $dark;
+		background-color: $dark;
+		color: white;
+		margin: 0 2px;
+		-webkit-font-smoothing: antialiased;
+	}
+}
+
+.pagination .pagination-appear{
+    opacity: 0.001;
+}
+.pagination .pagination-appear-active{
+    opacity: 1;
+    transition: opacity .3s linear 1.7s;    
+}

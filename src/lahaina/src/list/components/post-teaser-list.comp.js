@@ -12,6 +12,7 @@ var ListConfig = require('../config/list.config');
 var Footer = require('../../footer/footer.comp');
 var IndexLink = require('react-router').IndexLink;
 var Mark = require('../../common/components/mark.comp');
+var Pagination = require('./pagination.comp');
 
 module.exports = React.createClass({
 	mixins: [Reflux.ListenerMixin],
@@ -38,6 +39,7 @@ module.exports = React.createClass({
 	componentDidUpdate: function(){
 		var posts = this.state.list.posts,
 			refs;
+			var that = this;
 		if(!this.state.layout && posts){
 			// because of transitions, some refs may linger
 			// that should not be considered as part of new layout,
@@ -46,12 +48,6 @@ module.exports = React.createClass({
 			this.setState({
 				layout: utils.getLayoutInfo(refs)
 			});
-		}else if(this.state.firstLayout){
-			_.defer(function(that){
-				that.setState({
-					firstLayout: false
-				});
-			}, this);
 		}
 	},
 
@@ -96,7 +92,6 @@ module.exports = React.createClass({
 			list: {},
 			cols: utils.getColumnInfo(),
 			layout: null,
-			firstLayout: true,
 			loading: true
 		};
 	},
@@ -105,9 +100,6 @@ module.exports = React.createClass({
 		var paramsA = _.omit(routeParamsA, ['page']),
 			paramsB = _.omit(routeParamsB, ['page']);
 		return !_.isEqual(paramsA, paramsB);
-	},
-	getClassName: function(firstLayout){
-		return 'post-teaser-list' + (firstLayout ? ' first-layout' : '');
 	},
 	getStyle: function(layout, posts){
 		var l = utils.getLayoutHeight(layout),
@@ -118,41 +110,20 @@ module.exports = React.createClass({
 			return {};
 		}
 	},
-	getPaginationPath: function(params, index){
-		var path = [];
-		path.push(params.category ? 'category' : params.tag ? 'tag' : '');
-		path.push(params.category || params.tag || '');
-		path.push(index);
-		return _.compact(path).join('/');
-	},
-	getPagination: function(pages, params){
-		pages = _.times(pages, Number);
-		return pages.length > 1 ? (<ol>{
-			pages.map(_.bind(function(index) {
-				return (<li key={index}>
-							<Link to={this.getPaginationPath(params, index + 1)} activeClassName="active">{index + 1}</Link>
-						</li>);
-			}, this))
-		}</ol>) : null;
-	},
 	render: function() {
 		var state = this.state,
 			posts = state.list.posts || [],
-			params = this.props.params,
-			style = this.getStyle(state.layout, posts),
-			className = this.getClassName(state.firstLayout);
+			style = this.getStyle(state.layout, posts);
 
 		return (
 			<div>
-				<ReactCssTransitionGroup component="ul" className={className} style={style} transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={ListConfig.TRANSITION_OUT_DURATION}>
+				<ReactCssTransitionGroup component="ul" className="post-teaser-list" style={style} transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={ListConfig.TRANSITION_OUT_DURATION}>
 					{posts.map(function(post, i){
 						return <PostTeaser ref={i} key={'post-teaser-' + post.id} data={post} layout={state.layout && state.layout[i]} cols={state.cols} onClick={this.onTeaserClick.bind(this, post)}/>;
 					}, this)}
 					<LoadingIndicator key="loading-indicator" loading={state.loading} />
 				</ReactCssTransitionGroup>
-				<div className="pagination">
-					{this.getPagination(state.list.pages, params)}
-				</div>
+				<Pagination pages={state.list.pages} params={this.props.params} layout={state.layout}/>
 				<Footer />
 			</div>
 		);

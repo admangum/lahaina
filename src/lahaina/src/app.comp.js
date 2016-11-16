@@ -2,7 +2,6 @@ var React = require('react');
 var Reflux = require('reflux');
 var CoreActions = require('./core/core.actions');
 var PostStore = require('./core/post.store');
-var IndexLink = require('react-router').IndexLink;
 var Mark = require('./common/components/mark.comp');
 
 module.exports = React.createClass({
@@ -23,9 +22,7 @@ module.exports = React.createClass({
 			<div>
 				<header className="site-header">
 					<h1>
-						<IndexLink to="1">
-							<Mark location={this.props.location}/>
-						</IndexLink>
+						<Mark location={this.props.location}/>
 					</h1>
 				</header>
 				{this.props.children}

@@ -37,46 +37,37 @@ module.exports = React.createClass({
 	},
 
 	componentDidUpdate: function(){
-		var posts = this.state.list.posts,
-			refs;
-			var that = this;
-		if(!this.state.layout && posts){
-			// because of transitions, some refs may linger
-			// that should not be considered as part of new layout,
-			// so only take refs for posts in this route (they're ordered!)
-			refs = _.toArray(this.refs).slice(0, posts.length);
-			this.setState({
-				layout: utils.getLayoutInfo(refs)
-			});
+		if(!this.state.layout && this.state.list.posts){
+			this.setLayout();
 		}
 	},
 
 	onPostsChange: function(data){
-		if(data.transition){
-			this.setState({
-				list: {},
-				layout: null,
-				loading: false
-			});
-		}else if(data.loading){
-			this.setState({
-				loading: !!data.loading
-			});
-		}else{
-			this.setState({
-				list: data.list || {},
-				layout: null,
-				loading: false,
-				routeParams: this.props.routeParams
-			});
-		}
+		var self = this;
+		requestAnimationFrame(function(){
+			if(data.transition){
+				self.setState({
+					list: {},
+					layout: null,
+					loading: false
+				});
+			}else if(data.loading){
+				self.setState({
+					loading: !!data.loading
+				});
+			}else{
+				self.setState({
+					list: data.list || {},
+					layout: null,
+					loading: false,
+					routeParams: self.props.routeParams
+				});
+			}
+		});
 	},
 
 	onWindowResize: function(){
-		this.setState({
-			cols: utils.getColumnInfo(),
-			layout: null
-		});
+		this.setCols({recalculate: true});
 	},
 
 	onTeaserClick: function(post){
@@ -90,10 +81,38 @@ module.exports = React.createClass({
 	getInitialState: function(){
 		return {
 			list: {},
-			cols: utils.getColumnInfo(),
+			cols: utils.getColumnInfo({recalculate: true}),
 			layout: null,
 			loading: true
 		};
+	},
+	
+	shouldComponentUpdate: function(newProps, newState){
+		var oldState = this.state;
+		return (oldState.list !== newState.list || oldState.layout !== newState.layout || oldState.loading !== newState.loading);
+	},
+
+	setCols: function(options){
+		var self = this;
+		requestAnimationFrame(function(){
+			self.setState({
+				cols: utils.getColumnInfo(options),
+				layout: null
+			});
+		});
+	},
+
+	setLayout: function(){
+		// because of transitions, some refs may linger
+		// that should not be considered as part of new layout,
+		// so only take refs for posts in this route (they're ordered!)
+		var self = this;
+		var refs = _.toArray(this.refs).slice(0, this.state.list.posts.length);
+		requestAnimationFrame(function(){
+			self.setState({
+				layout: utils.getLayoutInfo(refs)
+			});
+		});
 	},
 
 	routeDidChange: function(routeParamsA, routeParamsB){
@@ -101,6 +120,7 @@ module.exports = React.createClass({
 			paramsB = _.omit(routeParamsB, ['page']);
 		return !_.isEqual(paramsA, paramsB);
 	},
+
 	getStyle: function(layout, posts){
 		var l = utils.getLayoutHeight(layout),
 			h = l.layoutHeight || l.previousLayoutHeight;
@@ -110,21 +130,21 @@ module.exports = React.createClass({
 			return {};
 		}
 	},
+
 	render: function() {
 		var state = this.state,
 			posts = state.list.posts || [],
 			style = this.getStyle(state.layout, posts);
 
 		return (
-			<div>
-				<ReactCssTransitionGroup component="ul" className="post-teaser-list" style={style} transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={ListConfig.TRANSITION_OUT_DURATION}>
+			<div className="post-teaser-list-comp">
+				<ReactCssTransitionGroup component="ul" className="post-teaser-list" transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={ListConfig.TRANSITION_OUT_DURATION}>
 					{posts.map(function(post, i){
 						return <PostTeaser ref={i} key={'post-teaser-' + post.id} data={post} layout={state.layout && state.layout[i]} cols={state.cols} onClick={this.onTeaserClick.bind(this, post)}/>;
 					}, this)}
 					<LoadingIndicator key="loading-indicator" loading={state.loading} />
 				</ReactCssTransitionGroup>
-				<Pagination pages={state.list.pages} params={this.props.params} layout={state.layout}/>
-				<Footer />
+				<Footer offsetY={style.height}/>
 			</div>
 		);
 	}

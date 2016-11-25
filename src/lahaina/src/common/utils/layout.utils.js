@@ -1,6 +1,7 @@
 var config = require('../config/config').layout;
 var _ = require('lodash');
 var cache = {};
+var page, clientWidth;
 var layoutUtils = {
 	getLayoutInfo: function(refs){
 		var colInfo = layoutUtils.getColumnInfo(),
@@ -26,8 +27,8 @@ var layoutUtils = {
 			return memo;
 		}, {});
 	},
-	getColumnInfo: function(){
-		var appW = document.getElementById('page').clientWidth,
+	getColumnInfo: function(options){
+		var appW = this.getClientWidth(options),
 			colCount = Math.floor(Math.max((appW + config.gutterWidth) / (config.minColWidth + config.gutterWidth), 1)),
 			gutCount = colCount - 1,
 			colWidth = Math.round((appW - (gutCount * config.gutterWidth)) / colCount);
@@ -48,8 +49,18 @@ var layoutUtils = {
 	},
 	getPageInfo: function(){
 		return {
-			w: document.getElementById('page').clientWidth
+			w: this.getClientWidth()
 		};
+	},
+	getClientWidth: function(options){
+		options = options || {};
+		if(!page){
+			page = document.getElementById('page');
+		}
+		if(options.recalculate){
+			clientWidth = page.clientWidth;
+		}
+		return clientWidth;
 	}
 };
 module.exports = layoutUtils;

@@ -1,12 +1,15 @@
 @import 'src/common/styles/variables';
-
+.post-teaser-list-comp{
+	overflow: hidden;
+}
 .post-teaser-list{
 	list-style: none;
 	margin: 25px 0 20px;
 	padding: 0;
-	min-height: 300px;
+	// min-height: 300px;
 	opacity: 1;
-	transition: opacity .5s ease-out .3s, height .7s ease-in-out;
+	/*transition: opacity .5s ease-out .3s, height .7s ease-in-out;*/
+	transition: opacity .5s ease-out .3s;
 }
 
 .post-teaser{
@@ -66,7 +69,7 @@ footer .post-teaser{
 	opacity: 0.7;
 	width: 0 !important;
 	transition: width .45s cubic-bezier(.42,.03,.4,1) .7s, opacity .25s linear .8s;
-
+	// transition: opacity .25s linear .8s;
 	.post-title span{
 		color: $dark;
 		transition: color .5s ease-in .25s;
@@ -94,6 +97,7 @@ footer .post-teaser{
 // layout
 .post-teaser{
 	transition: transform 1s ease-out;
+	will-change: transform;
 }
 
 .post-teaser .post-title {

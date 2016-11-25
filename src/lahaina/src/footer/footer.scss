@@ -7,6 +7,7 @@ footer {
     position: relative;
     z-index: 1;
     font-size: 14px;
+    margin-top: 60px;
     > .inner{
         padding: 20px 0 20px 20px;
     }
@@ -85,6 +86,9 @@ footer .post-category{
     font-size: 12px;
 }
 
+footer{
+    transition: transform 500ms ease-in-out;
+}
 
 footer.footer-appear,
 footer.footer-enter{

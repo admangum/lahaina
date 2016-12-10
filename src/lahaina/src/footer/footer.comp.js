@@ -64,7 +64,7 @@ module.exports = React.createClass({
 	getFooter: function(content){
 		if(content){
 			return (
-				<footer ref="footer" id="colophon" role="contentInfo" style={{transform: 'translateY('+this.props.offsetY+'px)'}}>
+				<footer ref="footer" id="colophon" role="contentInfo">
 	  <div className="inner">
 	  	<div className="featured section">
 	  		<div className="inner">

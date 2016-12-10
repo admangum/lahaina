@@ -22,8 +22,7 @@ module.exports = React.createClass({
         var props = this.props,
             visible = !!(props.layout && props.pages > 1);
 
-        return (<div>
-            <ReactCssTransitionGroup 
+        return (<ReactCssTransitionGroup 
             component="div" 
             className={"pagination" + (visible ? '' : ' hidden')}
             transitionName="pagination" 
@@ -34,7 +33,6 @@ module.exports = React.createClass({
                 <ol key="pagination">
 					{this.getPagination(props)}
                 </ol>
-			</ReactCssTransitionGroup>
-        </div>);
+			</ReactCssTransitionGroup>);
     }
 });

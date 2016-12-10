@@ -138,13 +138,14 @@ module.exports = React.createClass({
 
 		return (
 			<div className="post-teaser-list-comp">
-				<ReactCssTransitionGroup component="ul" className="post-teaser-list" transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={ListConfig.TRANSITION_OUT_DURATION}>
+				<ReactCssTransitionGroup component="ul" className="post-teaser-list" style={{height: style.height}} transitionName="post-teaser" transitionAppear={true} transitionAppearTimeout={750} transitionEnterTimeout={500} transitionLeaveTimeout={ListConfig.TRANSITION_OUT_DURATION}>
 					{posts.map(function(post, i){
 						return <PostTeaser ref={i} key={'post-teaser-' + post.id} data={post} layout={state.layout && state.layout[i]} cols={state.cols} onClick={this.onTeaserClick.bind(this, post)}/>;
 					}, this)}
 					<LoadingIndicator key="loading-indicator" loading={state.loading} />
 				</ReactCssTransitionGroup>
-				<Footer offsetY={style.height}/>
+				<Pagination pages={state.list.pages} params={this.props.params} layout={state.layout}/>
+				<Footer />
 			</div>
 		);
 	}

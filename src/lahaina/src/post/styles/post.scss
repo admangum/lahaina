@@ -8,13 +8,11 @@
 }
 
 .post-header{
-	position: absolute;
-	top: 30px;
-	z-index: 1000; // move above content
+	margin-bottom: 25px;
 }
 
 .post-body{
-	padding: 160px 20px 0;
+	padding: 0 20px 50px;
 }
 
 .embedded-content-wrapper + .post-body {
